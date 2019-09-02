@@ -7,11 +7,13 @@ const routes: Routes = [
     path: "login",
     loadChildren: () => LoginModule
   },
+  // -------------- temp
   {
     path: "",
     redirectTo: "/login",
     pathMatch: "full"
   }
+  // ------------------
 ];
 
 @NgModule({
