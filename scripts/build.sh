@@ -2,4 +2,4 @@
 
 set -e
 
-docker build -t marketingFront:dev .
+docker build -t marketingfront:dev .
