@@ -2,4 +2,4 @@
 
 set -e
 
-docker run -d -v ${PWD}:/app -v /app/node_modules -p 4201:4200 --name marketingFront --rm marketingfront:dev
+docker run -d -v ${PWD}:/app -v /app/node_modules -p 4201:4200 --name marketingfront --rm marketingfront:dev
