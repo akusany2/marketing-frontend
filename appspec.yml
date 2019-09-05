@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/www/html/marketingFront
+    destination: /var/www/html/marketingfront
 hooks:
   BeforeInstall:
     - location: scripts/before_install.sh
@@ -14,7 +14,6 @@ hooks:
       runas: root
   ApplicationStart:
     - location: scripts/start.sh
-    - location: scripts/create_test_db.sh
       timeout: 300
       runas: root
   # ApplicationStop:
