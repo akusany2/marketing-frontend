@@ -13,7 +13,7 @@ phases:
       - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t marketingfront:dev .
-      - docker run -d -v ${PWD}:/app -v /app/node_modules -p 4201:4200 --name foo --rm example:dev
+      - docker run -d -v ${PWD}:/app -v /app/node_modules -p 4201:4200 --name foo --rm marketingfront:dev
   post_build:
     commands:
       - echo Build completed on `date`
