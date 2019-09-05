@@ -10,10 +10,12 @@ phases:
       - $(aws ecr get-login --no-include-email | sed 's|https://||')
   build:
     commands:
+      - echo Docker service start
+      - service docker start
       - echo Build started on `date`
       - echo Building the Docker image...
-      - sudo docker build -t marketingfront:dev .
-      - sudo docker run -d -v ${PWD}:/app -v /app/node_modules -p 4201:4200 --name foo --rm marketingfront:dev
+      - docker build -t marketingfront:dev .
+      - docker run -d -v ${PWD}:/app -v /app/node_modules -p 4201:4200 --name foo --rm marketingfront:dev
   post_build:
     commands:
       - echo Build completed on `date`
