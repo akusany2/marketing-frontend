@@ -2,4 +2,4 @@
 
 set -e
 
-docker stop marketingFront
+docker stop marketingfront
