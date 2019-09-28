@@ -1,17 +1,35 @@
 <div class="flex-center flex-direction-column w-100pt h-100pt">
   <h2>Marketing App Login</h2>
   <br>
-  <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
-    <div class="row">
-      <div class="input-field col s6">
-        <input id="username" type="text" class="validate" formControlName="username">
-        <label for="username">Username</label>
-      </div>
-      <div class="input-field col s6">
-        <input id="password" type="password" class="validate" formControlName="password">
-        <label for="password">Password</label>
-      </div>
-    </div>
-    <button type="submit" class="waves-effect waves-light btn">Login</button>
+
+  <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="login(loginForm.value)">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your username!">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="username" placeholder="Username" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Password!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password" placeholder="Password" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item class="flex-center">
+      <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
+    </nz-form-item>
+    <!-- <nz-form-item>
+    <nz-form-control>
+      <label nz-checkbox formControlName="remember">
+        <span>Remember me</span>
+      </label>
+      <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
+      <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
+      Or
+      <a>register now!</a>
+    </nz-form-control>
+  </nz-form-item> -->
   </form>
 </div>

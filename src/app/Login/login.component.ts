@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
 import { LoginInterface } from './interfaces/login.interface';
 
@@ -7,16 +7,17 @@ import { LoginInterface } from './interfaces/login.interface';
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.css"]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm;
   constructor(private formBuilder: FormBuilder) {
+  }
+
+  ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: '',
       password: ''
     });
   }
-
-
   login(userData: LoginInterface) {
     console.log(userData);
   }

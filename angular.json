@@ -25,13 +25,20 @@
             "aot": false,
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
-              "src/assets/css/materialize.min.css",
+              "src/theme.less",
               "src/styles.scss"
             ],
-            "scripts": ["src/assets/js/materialize.min.js"]
+            "scripts": [
+
+            ]
           },
           "configurations": {
             "production": {
