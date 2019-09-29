@@ -21,6 +21,7 @@ registerLocaleData(en);
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     environment.production ? [] : AkitaNgDevtools.forRoot(),
     AkitaNgRouterStoreModule.forRoot(),
     BrowserAnimationsModule,
