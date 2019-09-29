@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, Validators } from "@angular/forms";
 import { StatusMessageEnums } from '../sharedServices/StatusMessage.enum';
 import { UserLoginInterface } from './interfaces/login.interface';
 import { LoginService } from './login.service';
@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: '',
-      password: ''
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
   login(userData: UserLoginInterface) {
