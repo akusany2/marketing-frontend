@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgZorroAntdModule, NzFormModule } from 'ng-zorro-antd';
+import { SharedComponent } from './shared.component';
 
 @NgModule({
   imports: [CommonModule,
@@ -13,6 +14,6 @@ import { NgZorroAntdModule, NzFormModule } from 'ng-zorro-antd';
     NzFormModule,
     NgZorroAntdModule,
     ReactiveFormsModule],
-  declarations: []
+  declarations: [SharedComponent]
 })
 export class SharedModule { }
