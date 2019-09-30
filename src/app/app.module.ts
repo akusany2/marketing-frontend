@@ -1,14 +1,14 @@
-import { registerLocaleData } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import en from '@angular/common/locales/en';
+import { registerLocaleData } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
+import en from "@angular/common/locales/en";
 import { NgModule } from "@angular/core";
-import { FormsModule } from '@angular/forms';
+import { FormsModule } from "@angular/forms";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NG_ENTITY_SERVICE_CONFIG } from "@datorama/akita-ng-entity-service";
 import { AkitaNgRouterStoreModule } from "@datorama/akita-ng-router-store";
 import { AkitaNgDevtools } from "@datorama/akita-ngdevtools";
-import { en_US, NZ_I18N } from 'ng-zorro-antd';
+import { en_US, NZ_I18N } from "ng-zorro-antd";
 import { environment } from "../environments/environment";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -27,8 +27,7 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     SharedModule,
     // NgZorroAntdModule,
-    FormsModule,
-    HttpClientModule
+    FormsModule
   ],
   providers: [
     {
@@ -39,4 +38,4 @@ registerLocaleData(en);
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
