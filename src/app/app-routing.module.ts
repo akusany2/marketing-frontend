@@ -1,23 +1,26 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { DashboardModule } from "./Dashboard/Dashboard.module";
-import { LoginModule } from "./Login/login.module";
 
 const routes: Routes = [
   {
     path: "login",
-    loadChildren: () => LoginModule
+    loadChildren: () => import('./Login/login.module').then(mod => mod.LoginModule)
   },
   {
     path: "dashboard",
-    loadChildren: () => DashboardModule
+    loadChildren: () => import('./Dashboard/dashboard.module').then(mod => mod.DashboardModule)
+  },
+  {
+    path: "audience",
+    loadChildren: () => import('./Audience/audience.module').then(mod => mod.AudienceModule)
   },
   // -------------- temp
   {
     path: "",
-    redirectTo: "/login",
+    redirectTo: "/dashboard",
     pathMatch: "full"
-  }
+  },
+  { path: '**', loadChildren: () => import('./Dashboard/dashboard.module').then(mod => mod.DashboardModule) }
   // ------------------
 ];
 
@@ -25,4 +28,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
