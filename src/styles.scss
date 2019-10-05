@@ -1,9 +1,14 @@
 @import './styles/helpers';
 @import './styles/base';
+@import './styles/mixins';
 
 html,
 body {
   height: 100%;
+}
+
+.inner-content {
+  background-color: #fff;
 }
 
 // body {

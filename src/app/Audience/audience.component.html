@@ -1,11 +1,32 @@
-<nz-layout>
-  <nz-header>
+<nz-layout class="h-100pt">
+  <nz-header class="mb-10">
     <app-header></app-header>
   </nz-header>
   <nz-content>
-    <p>
-      Add something hereeeeeeeee
-    </p>
+    <div class="inner-content">
+      <nz-table #filterTable [nzData]="listOfDisplayData">
+        <thead (nzSortChange)="sort($event)" nzSingleSort>
+          <tr>
+            <th nzShowSort nzSortKey="name" nzShowFilter [nzFilters]="listOfName"
+              (nzFilterChange)="filter($event, searchAddress)">
+              Name
+            </th>
+            <th nzShowSort nzSortKey="age">Age</th>
+            <th nzShowSort nzSortKey="address" nzShowFilter [nzFilterMultiple]="false" [nzFilters]="listOfAddress"
+              (nzFilterChange)="filter(listOfSearchName, $event)">
+              Address
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of filterTable.data">
+            <td>{{ data.name }}</td>
+            <td>{{ data.age }}</td>
+            <td>{{ data.address }}</td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
   </nz-content>
   <!-- <nz-footer>Footer</nz-footer> -->
 </nz-layout>
