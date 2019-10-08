@@ -4,6 +4,7 @@ import { NgModule } from "@angular/core";
 import { HeaderModule } from '../Header/header.module';
 import { LoginService } from '../Login/login.service';
 import { SharedModule } from '../sharedModule/shared.module';
+import { AuthGuard } from '../sharedServices/auth.guard';
 import { TokenInterceptor } from '../sharedServices/token-interceptor';
 import { UserService } from '../sharedServices/user.service';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -19,7 +20,8 @@ import { DashboardComponent } from "./dashboard.component";
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    AuthGuard
   ]
 })
 export class DashboardModule { }
