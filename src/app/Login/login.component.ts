@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { StatusMessageEnums } from "../sharedServices/status-message.enum";
@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginHttpError = false;
   constructor(
-    private formBuilder: FormBuilder,
     private loginService: LoginService,
     private router: Router
   ) { }
@@ -29,10 +28,6 @@ export class LoginComponent implements OnInit {
         Validators.required
       ]),
     });
-    // this.loginForm = this.formBuilder.group({
-    //   username: ["", Validators.required],
-    //   password: ["", Validators.required]
-    // });
   }
   login(userData: UserLoginInterface) {
     for (const i in this.loginForm.controls) {

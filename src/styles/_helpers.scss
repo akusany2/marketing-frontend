@@ -38,3 +38,18 @@
 .text-white {
   color: #fff;
 }
+
+// positions ---------------
+.pos-rel {
+  position: relative;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.pull-right {
+  float: right;
+}

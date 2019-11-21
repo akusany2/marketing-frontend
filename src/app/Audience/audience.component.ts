@@ -1,42 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AudienceService } from './audience.service';
 
 @Component({
   selector: 'app-audience',
   templateUrl: './audience.component.html',
   styleUrls: ['./audience.component.css']
 })
-export class AudienceComponent {
+export class AudienceComponent implements OnInit {
+  constructor(private audienceService: AudienceService) { }
   sortName: string | null = null;
   sortValue: string | null = null;
-  searchAddress: string;
-  listOfName = [{ text: 'Joe', value: 'Joe' }, { text: 'Jim', value: 'Jim' }];
-  listOfAddress = [{ text: 'London', value: 'London' }, { text: 'Sidney', value: 'Sidney' }];
-  listOfSearchName: string[] = [];
-  listOfData: Array<{ name: string; age: number; address: string }> = [
-    {
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park'
-    },
-    {
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park'
-    },
-    {
-      name: 'Jim Red',
-      age: 32,
-      address: 'London No. 2 Lake Park'
-    }
-  ];
-  listOfDisplayData: Array<{ name: string; age: number; address: string }> = [
-    ...this.listOfData
-  ];
+
+  listOfDisplayAudience: any[] = [];
 
   sort(sort: { key: string; value: string }): void {
     this.sortName = sort.key;
@@ -44,21 +19,15 @@ export class AudienceComponent {
     this.search();
   }
 
-  filter(listOfSearchName: string[], searchAddress: string): void {
-    this.listOfSearchName = listOfSearchName;
-    this.searchAddress = searchAddress;
-    this.search();
-  }
-
   search(): void {
 
-    const filterFunc = (item: { name: string; age: number; address: string }) =>
-      (this.searchAddress ? item.address.indexOf(this.searchAddress) !== -1 : true) &&
-      (this.listOfSearchName.length ? this.listOfSearchName.some(name => item.name.indexOf(name) !== -1) : true);
-    const data = this.listOfData.filter(item => filterFunc(item));
+    // const filterFunc = (item: { name: string; age: number; address: string }) =>
+    //   (this.searchAddress ? item.address.indexOf(this.searchAddress) !== -1 : true) &&
+    //   (this.listOfSearchName.length ? this.listOfSearchName.some(name => item.name.indexOf(name) !== -1) : true);
+    // const data = this.listOfData.filter(item => filterFunc(item));
 
     if (this.sortName && this.sortValue) {
-      this.listOfDisplayData = data.sort((a, b) =>
+      this.listOfDisplayAudience = this.listOfDisplayAudience.sort((a, b) =>
         this.sortValue === 'ascend'
           ? a[this.sortName!] > b[this.sortName!]
             ? 1
@@ -68,8 +37,15 @@ export class AudienceComponent {
             : -1
       );
     } else {
-      this.listOfDisplayData = data;
+      this.listOfDisplayAudience = this.listOfDisplayAudience;
     }
+  }
+  ngOnInit(): void {
+    this.audienceService.getAllAudience().subscribe(data => {
+      this.listOfDisplayAudience = data as any;
+    }, error => {
+      console.error(error);
+    });
   }
 
 }
