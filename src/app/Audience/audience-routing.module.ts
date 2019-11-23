@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { NotFoundComponent } from '../SharedComponent/not-found.component';
 import { AudienceComponent } from './audience.component';
 import { AudienceCreateComponent } from './AudienceCreate/audience-create.component';
 
@@ -9,10 +10,10 @@ const routes: Routes = [
     component: AudienceComponent
   },
   {
-    path: "/create",
+    path: "create",
     component: AudienceCreateComponent
   },
-  { path: '**', component: AudienceComponent }
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

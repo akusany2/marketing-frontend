@@ -3,6 +3,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { HeaderModule } from '../Header/header.module';
 import { LoginService } from '../Login/login.service';
+import { NotFoundComponent } from '../SharedComponent/not-found.component';
 import { SharedModule } from '../sharedModule/shared.module';
 import { TokenInterceptor } from '../sharedServices/token-interceptor';
 import { AudienceRoutingModule } from './audience-routing.module';
@@ -16,7 +17,7 @@ import { AudienceCreateComponent } from './AudienceCreate/audience-create.compon
     AudienceRoutingModule,
     HttpClientModule, HeaderModule, SharedModule,
   ],
-  declarations: [AudienceComponent, AudienceCreateComponent],
+  declarations: [AudienceComponent, AudienceCreateComponent, NotFoundComponent],
   providers: [LoginService,
     AudienceService,
     {

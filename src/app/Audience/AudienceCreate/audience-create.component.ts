@@ -29,4 +29,8 @@ export class AudienceCreateComponent implements OnInit {
       ])
     });
   }
+
+  submitCreateAudience(audienceData) {
+    console.log(audienceData);
+  }
 }

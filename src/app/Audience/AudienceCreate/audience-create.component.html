@@ -1,36 +1,54 @@
-<div class="flex-center flex-direction-column w-100pt h-100pt">
-  <h2>Marketing App Login</h2>
-  <br>
+<nz-layout class="h-100pt">
+  <nz-header class="mb-10">
+    <app-header></app-header>
+  </nz-header>
+  <nz-content>
 
-  <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="login(loginForm.value)">
-    <!-- <nz-form-item *ngIf="loginHttpError">
+    <h2 align="center">Add Audience</h2>
+    <br>
+
+    <form nz-form [formGroup]="audienceCreateForm" class="login-form"
+      (ngSubmit)="submitCreateAudience(audienceCreateForm.value)">
+      <!-- <nz-form-item *ngIf="loginHttpError">
       <nz-alert nzType="error" nzMessage="Invalid credentials!" nzCloseable nzShowIcon
         (nzOnClose)="closeHttpErrorAlert()">
       </nz-alert>
     </nz-form-item> -->
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Name required" nzHasFeedback>
-        <nz-input-group nzPrefixIcon="user">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" [nzOffset]="3" nzRequired nzFor="name">Name</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="6" nzErrorTip="Name required" nzHasFeedback>
           <input type="text" nz-input formControlName="name" placeholder="Name" required />
-        </nz-input-group>
-      </nz-form-control>
-      <nz-form-control nzErrorTip="Surname required" nzHasFeedback>
-        <nz-input-group nzPrefixIcon="user">
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" [nzOffset]="3" nzRequired nzFor="surname">Surname
+        </nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="6" nzErrorTip="Surname required" nzHasFeedback>
           <input type="text" nz-input formControlName="surname" placeholder="Surname" required />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="Please input your Password!" nzHasFeedback>
-        <nz-input-group nzPrefixIcon="lock">
-          <input type="password" nz-input formControlName="password" placeholder="Password" required />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item class="flex-center">
-      <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
-    </nz-form-item>
-    <!-- <nz-form-item>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" [nzOffset]="3" nzRequired nzFor="email">Email</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="6" nzErrorTip="Please input your Email!" nzHasFeedback>
+          <input type="email" nz-input formControlName="email" placeholder="Email" required />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" [nzOffset]="3" nzRequired nzFor="phone">Phone</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="6" nzErrorTip="Please input your Phone!" nzHasFeedback>
+          <input type="number" nz-input formControlName="phone" placeholder="phone" required />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" [nzOffset]="3" nzRequired nzFor="source">Source</nz-form-label>
+        <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="6" nzErrorTip="Must define the Source!" nzHasFeedback>
+          <input type="text" nz-input formControlName="source" placeholder="Source" required />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="flex-center">
+        <button nz-button class="login-form-button" [nzType]="'primary'">Submit Audience</button>
+      </nz-form-item>
+      <!-- <nz-form-item>
     <nz-form-control>
       <label nz-checkbox formControlName="remember">
         <span>Remember me</span>
@@ -42,4 +60,7 @@
       <a>register now!</a>
     </nz-form-control>
   </nz-form-item> -->
-  </form>
+    </form>
+  </nz-content>
+  <!-- <nz-footer>Footer</nz-footer> -->
+</nz-layout>
