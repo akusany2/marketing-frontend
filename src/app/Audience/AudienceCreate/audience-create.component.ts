@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AudienceCreateService } from './audience-create.service';
 
 @Component({
   selector: 'app-audience-create',
@@ -8,7 +9,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AudienceCreateComponent implements OnInit {
   audienceCreateForm: FormGroup;
-  constructor() { }
+  constructor(private createAudience: AudienceCreateService) { }
 
   ngOnInit(): void {
     this.audienceCreateForm = new FormGroup({
@@ -31,6 +32,10 @@ export class AudienceCreateComponent implements OnInit {
   }
 
   submitCreateAudience(audienceData) {
+    if (audienceData) {
+      audienceData.modifiedBy = "currentUser";
+    }
     console.log(audienceData);
+    this.createAudience.createAudience(audienceData);
   }
 }

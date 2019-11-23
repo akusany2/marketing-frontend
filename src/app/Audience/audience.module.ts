@@ -10,6 +10,7 @@ import { AudienceRoutingModule } from './audience-routing.module';
 import { AudienceComponent } from './audience.component';
 import { AudienceService } from './audience.service';
 import { AudienceCreateComponent } from './AudienceCreate/audience-create.component';
+import { AudienceCreateService } from './AudienceCreate/audience-create.service';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { AudienceCreateComponent } from './AudienceCreate/audience-create.compon
   declarations: [AudienceComponent, AudienceCreateComponent, NotFoundComponent],
   providers: [LoginService,
     AudienceService,
+    AudienceCreateService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
