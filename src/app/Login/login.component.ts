@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { StatusMessageEnums } from "../sharedServices/status-message.enum";
+import { UserProfileStore } from "../Store/User.store";
 import { UserLoginInterface } from "./interfaces/login.interface";
 import { LoginService } from "./login.service";
 
@@ -16,17 +17,14 @@ export class LoginComponent implements OnInit {
   loginHttpError = false;
   constructor(
     private loginService: LoginService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private userProfileStore: UserProfileStore
+  ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      username: new FormControl('', [
-        Validators.required
-      ]),
-      password: new FormControl('', [
-        Validators.required
-      ]),
+      username: new FormControl("", [Validators.required]),
+      password: new FormControl("", [Validators.required])
     });
   }
   login(userData: UserLoginInterface) {
@@ -45,6 +43,7 @@ export class LoginComponent implements OnInit {
           this.loginHttpError = true;
         } else {
           this.loginService.setToken(data["token"]);
+          this.userProfileStore.set({ user: data.user });
           this.router.navigate(["/dashboard"]);
         }
       },
