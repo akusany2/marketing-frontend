@@ -18,6 +18,7 @@ export class UserProfileStore extends EntityStore<UserProfileState> {
   }
 }
 
+@Injectable({ providedIn: "root" })
 export class UserProfileQuery extends QueryEntity<UserProfileState> {
   constructor(protected store: UserProfileStore) {
     super(store);

@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { StatusMessageEnums } from "../sharedServices/status-message.enum";
-import { UserProfileStore } from "../Store/User.store";
 import { UserLoginInterface } from "./interfaces/login.interface";
 import { LoginService } from "./login.service";
 
@@ -15,11 +14,7 @@ import { LoginService } from "./login.service";
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginHttpError = false;
-  constructor(
-    private loginService: LoginService,
-    private router: Router,
-    private userProfileStore: UserProfileStore
-  ) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -37,13 +32,12 @@ export class LoginComponent implements OnInit {
 
     this.loginService.loginUser(userData).subscribe(
       data => {
-        console.log(data);
         this.loginService.removeToken();
         if (data["message"] === StatusMessageEnums.invalidCredentials) {
           this.loginHttpError = true;
         } else {
           this.loginService.setToken(data["token"]);
-          this.userProfileStore.set({ user: data.user });
+          this.loginService.setUser(JSON.stringify(data["user"]));
           this.router.navigate(["/dashboard"]);
         }
       },
