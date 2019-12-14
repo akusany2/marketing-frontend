@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
-import { StatusMessageEnums } from "../sharedServices/status-message.enum";
+import { StatusMessageEnum } from "../sharedServices/status-message.enum";
 import { UserLoginInterface } from "./interfaces/login.interface";
 import { LoginService } from "./login.service";
 
@@ -13,8 +13,8 @@ import { LoginService } from "./login.service";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loginHttpError = false;
-  constructor(private loginService: LoginService, private router: Router) {}
+  loginHttpError = { status: false, message: "" };
+  constructor(private loginService: LoginService, private router: Router) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -33,21 +33,23 @@ export class LoginComponent implements OnInit {
     this.loginService.loginUser(userData).subscribe(
       data => {
         this.loginService.removeToken();
-        if (data["message"] === StatusMessageEnums.invalidCredentials) {
-          this.loginHttpError = true;
+        if (data["message"] === StatusMessageEnum.invalidCredentials) {
+          this.loginHttpError.status = true;
+          this.loginHttpError.message = "Invalid credentials!";
         } else {
           this.loginService.setToken(data["token"]);
-          this.loginService.setUser(JSON.stringify(data["user"]));
+          this.loginService.setUser(JSON.stringify(data["userObj"]));
           this.router.navigate(["/dashboard"]);
         }
       },
       err => {
-        this.loginHttpError = true;
+        this.loginHttpError.status = true;
+        this.loginHttpError.message = "Something went wrong, please contact Admin";
         return Observable.throw(err);
       }
     );
   }
   closeHttpErrorAlert() {
-    this.loginHttpError = false;
+    this.loginHttpError.status = false;
   }
 }

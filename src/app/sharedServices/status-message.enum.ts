@@ -1,3 +1,3 @@
-export enum StatusMessageEnums {
+export enum StatusMessageEnum {
   invalidCredentials = "invalidCredentials"
 }

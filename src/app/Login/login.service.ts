@@ -8,7 +8,7 @@ import { UserLoginInterface } from "./interfaces/login.interface";
 export class LoginService {
   tokenKey = "token";
   userKey = "userData";
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   loginUser(user: UserLoginInterface): Observable<any> {
     return this.http.post(apiServerUrl + "/users/login", user);
   }
@@ -26,7 +26,7 @@ export class LoginService {
     localStorage.setItem(this.userKey, user);
   }
   getUser() {
-    return localStorage.getItem(this.userKey);
+    return JSON.parse(localStorage.getItem(this.userKey));
   }
   removeUser() {
     localStorage.removeItem(this.userKey);

@@ -7,7 +7,7 @@ import { apiServerUrl } from '../../../config';
 export class AudienceCreateService {
   constructor(private http: HttpClient) { }
 
-  createAudience(audienceData) {
+  audienceCreate(audienceData) {
     return this.http.post(apiServerUrl + "/audience", audienceData);
   }
 }

@@ -3,8 +3,8 @@
   <br>
 
   <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="login(loginForm.value)">
-    <nz-form-item *ngIf="loginHttpError">
-      <nz-alert nzType="error" nzMessage="Invalid credentials!" nzCloseable nzShowIcon
+    <nz-form-item *ngIf="loginHttpError.status">
+      <nz-alert nzType="error" nzMessage="{{loginHttpError.message}}" nzCloseable nzShowIcon
         (nzOnClose)="closeHttpErrorAlert()">
       </nz-alert>
     </nz-form-item>
