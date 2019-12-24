@@ -10,8 +10,8 @@ import { TokenInterceptor } from "../sharedServices/token-interceptor";
 import { AudienceRoutingModule } from "./audience-routing.module";
 import { AudienceComponent } from "./audience.component";
 import { AudienceService } from "./audience.service";
-import { AudienceCreateComponent } from "./AudienceCreate/audience-create.component";
-import { AudienceCreateService } from "./AudienceCreate/audience-create.service";
+import { AudienceDetailComponent } from "./AudienceDetails/audience-details.component";
+import { AudienceDetailService } from "./AudienceDetails/audience-details.service";
 
 @NgModule({
   imports: [
@@ -21,11 +21,11 @@ import { AudienceCreateService } from "./AudienceCreate/audience-create.service"
     HeaderModule,
     SharedModule
   ],
-  declarations: [AudienceComponent, AudienceCreateComponent, NotFoundComponent],
+  declarations: [AudienceComponent, AudienceDetailComponent, NotFoundComponent],
   providers: [
     LoginService,
     AudienceService,
-    AudienceCreateService,
+    AudienceDetailService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
@@ -34,4 +34,4 @@ import { AudienceCreateService } from "./AudienceCreate/audience-create.service"
     AuthGuard
   ]
 })
-export class AudienceModule {}
+export class AudienceModule { }

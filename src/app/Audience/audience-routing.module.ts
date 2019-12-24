@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { NotFoundComponent } from "../SharedComponent/not-found.component";
 import { AuthGuard } from "../sharedServices/auth.guard";
 import { AudienceComponent } from "./audience.component";
-import { AudienceCreateComponent } from "./AudienceCreate/audience-create.component";
+import { AudienceDetailComponent } from "./AudienceDetails/audience-details.component";
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: "create",
-    component: AudienceCreateComponent,
+    component: AudienceDetailComponent,
     canActivate: [AuthGuard]
   },
   { path: "**", component: NotFoundComponent }
@@ -23,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AudienceRoutingModule {}
+export class AudienceRoutingModule { }

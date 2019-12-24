@@ -4,7 +4,7 @@ import { apiServerUrl } from '../../../config';
 
 
 @Injectable()
-export class AudienceCreateService {
+export class AudienceDetailService {
   constructor(private http: HttpClient) { }
 
   audienceCreate(audienceData) {

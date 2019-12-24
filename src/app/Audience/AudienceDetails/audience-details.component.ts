@@ -3,17 +3,17 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 import { LoginService } from "../../Login/login.service";
 import { AudienceCreateInterface } from './audience-create.interface';
-import { AudienceCreateService } from "./audience-create.service";
+import { AudienceDetailService } from "./audience-details.service";
 
 @Component({
-  selector: "app-audience-create",
-  templateUrl: "./audience-create.component.html",
-  styleUrls: ["./audience-create.component.scss"]
+  selector: "app-audience-details",
+  templateUrl: "./audience-details.component.html",
+  styleUrls: ["./audience-details.component.scss"]
 })
-export class AudienceCreateComponent implements OnInit {
+export class AudienceDetailComponent implements OnInit {
   audienceCreateForm: FormGroup;
   constructor(
-    private createAudience: AudienceCreateService,
+    private createAudience: AudienceDetailService,
     private loginService: LoginService,
     private router: Router
   ) { }
