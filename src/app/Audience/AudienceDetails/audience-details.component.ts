@@ -1,8 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { Router } from '@angular/router';
 import { LoginService } from "../../Login/login.service";
-import { AudienceCreateInterface } from './audience-create.interface';
+import { AudienceCreateInterface } from "../Interfaces/audience-create.interface";
 import { AudienceDetailService } from "./audience-details.service";
 
 @Component({
@@ -14,9 +13,8 @@ export class AudienceDetailComponent implements OnInit {
   audienceCreateForm: FormGroup;
   constructor(
     private createAudience: AudienceDetailService,
-    private loginService: LoginService,
-    private router: Router
-  ) { }
+    private loginService: LoginService
+  ) {}
 
   ngOnInit(): void {
     this.audienceCreateForm = new FormGroup({
@@ -35,10 +33,6 @@ export class AudienceDetailComponent implements OnInit {
     // console.log(this.loginService.getUser());
     // console.log(audienceData);
     audienceData.userId = this.loginService.getUser()._id;
-    this.createAudience.audienceCreate(audienceData).subscribe(data => {
-      this.router.navigate(["/audience"]);
-    }, err => {
-      console.log(err);
-    });
+    this.createAudience.audienceCreate(audienceData);
   }
 }

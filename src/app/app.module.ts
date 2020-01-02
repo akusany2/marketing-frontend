@@ -22,7 +22,7 @@ registerLocaleData(en);
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    environment.production ? [] : AkitaNgDevtools.forRoot(),
+    environment.production ? [] : AkitaNgDevtools.forRoot({ shallow: false }),
     AkitaNgRouterStoreModule.forRoot(),
     BrowserAnimationsModule,
     SharedModule,
@@ -38,4 +38,4 @@ registerLocaleData(en);
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

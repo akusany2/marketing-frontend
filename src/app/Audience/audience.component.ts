@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { AudienceService } from "./audience.service";
+import { AudienceQuery, AudienceStore } from "./audience.store";
 
 @Component({
   selector: "app-audience",
@@ -7,7 +8,11 @@ import { AudienceService } from "./audience.service";
   styleUrls: ["./audience.component.css"]
 })
 export class AudienceComponent implements OnInit {
-  constructor(private audienceService: AudienceService) {}
+  constructor(
+    private audienceService: AudienceService,
+    private audienceStore: AudienceStore,
+    private audienceQuery: AudienceQuery
+  ) {}
   sortName: string | null = null;
   sortValue: string | null = null;
 
@@ -44,32 +49,28 @@ export class AudienceComponent implements OnInit {
   deleteAudience(id) {
     this.audienceDataLoading = true;
     if (this.listOfDisplayAudience) {
-      this.audienceService.deleteAudience(id).subscribe(data => {
-        for (
-          var index = 0;
-          index < this.listOfDisplayAudience.length;
-          index++
-        ) {
-          if (this.listOfDisplayAudience[index]._id === id) {
-            this.listOfDisplayAudience.splice(index, 1);
-            break;
-          }
-        }
-        // To trigger change detection
-        this.listOfDisplayAudience = [...this.listOfDisplayAudience];
-        this.audienceDataLoading = false;
-      });
+      // this.audienceService.deleteAudience(id).subscribe(data => {
+      //   for (
+      //     var index = 0;
+      //     index < this.listOfDisplayAudience.length;
+      //     index++
+      //   ) {
+      //     if (this.listOfDisplayAudience[index]._id === id) {
+      //       this.listOfDisplayAudience.splice(index, 1);
+      //       break;
+      //     }
+      //   }
+      //   // To trigger change detection
+      //   this.listOfDisplayAudience = [...this.listOfDisplayAudience];
+      //   this.audienceDataLoading = false;
+      // });
+      this.audienceService.deleteAudience(id);
     }
   }
 
   ngOnInit(): void {
-    this.audienceService.getAllAudience().subscribe(
-      data => {
-        this.listOfDisplayAudience = data as any;
-      },
-      error => {
-        console.error(error);
-      }
-    );
+    this.audienceService.getAllAudience(data => {
+      this.listOfDisplayAudience = data;
+    });
   }
 }
