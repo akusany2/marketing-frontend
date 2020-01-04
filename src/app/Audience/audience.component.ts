@@ -1,6 +1,9 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AudienceService } from "./audience.service";
 import { AudienceQuery, AudienceStore } from "./audience.store";
+import { AudienceInterface } from './Interfaces/audience.interface';
 
 @Component({
   selector: "app-audience",
@@ -11,66 +14,28 @@ export class AudienceComponent implements OnInit {
   constructor(
     private audienceService: AudienceService,
     private audienceStore: AudienceStore,
-    private audienceQuery: AudienceQuery
-  ) {}
+    private audienceQuery: AudienceQuery,
+    private router: Router
+  ) { }
   sortName: string | null = null;
   sortValue: string | null = null;
 
-  listOfDisplayAudience: any[] = [];
-  audienceDataLoading: boolean = false;
-
-  sort(sort: { key: string; value: string }): void {
-    this.sortName = sort.key;
-    this.sortValue = sort.value;
-    this.search();
-  }
-
-  search(): void {
-    // const filterFunc = (item: { name: string; age: number; address: string }) =>
-    //   (this.searchAddress ? item.address.indexOf(this.searchAddress) !== -1 : true) &&
-    //   (this.listOfSearchName.length ? this.listOfSearchName.some(name => item.name.indexOf(name) !== -1) : true);
-    // const data = this.listOfData.filter(item => filterFunc(item));
-
-    if (this.sortName && this.sortValue) {
-      this.listOfDisplayAudience = this.listOfDisplayAudience.sort((a, b) =>
-        this.sortValue === "ascend"
-          ? a[this.sortName!] > b[this.sortName!]
-            ? 1
-            : -1
-          : b[this.sortName!] > a[this.sortName!]
-          ? 1
-          : -1
-      );
-    } else {
-      this.listOfDisplayAudience = this.listOfDisplayAudience;
-    }
-  }
+  listOfDisplayAudience$: Observable<AudienceInterface[]>;
+  isListLoading$: Observable<boolean>;
 
   deleteAudience(id) {
-    this.audienceDataLoading = true;
-    if (this.listOfDisplayAudience) {
-      // this.audienceService.deleteAudience(id).subscribe(data => {
-      //   for (
-      //     var index = 0;
-      //     index < this.listOfDisplayAudience.length;
-      //     index++
-      //   ) {
-      //     if (this.listOfDisplayAudience[index]._id === id) {
-      //       this.listOfDisplayAudience.splice(index, 1);
-      //       break;
-      //     }
-      //   }
-      //   // To trigger change detection
-      //   this.listOfDisplayAudience = [...this.listOfDisplayAudience];
-      //   this.audienceDataLoading = false;
-      // });
+    if (id && this.listOfDisplayAudience$) {
       this.audienceService.deleteAudience(id);
     }
   }
 
+  editAudience(id) {
+    this.router.navigate(["/audience/edit/" + id]);
+  }
+
   ngOnInit(): void {
-    this.audienceService.getAllAudience(data => {
-      this.listOfDisplayAudience = data;
-    });
+    this.isListLoading$ = this.audienceQuery.selectLoading();
+    this.listOfDisplayAudience$ = this.audienceQuery.selectAll();
+    this.audienceService.getAllAudience();
   }
 }

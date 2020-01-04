@@ -4,11 +4,11 @@
   </nz-header>
   <nz-content>
 
-    <h2 align="center">Add Audience</h2>
+    <h2 *ngIf="!audienceDataEntity" align="center">Add Audience</h2>
+    <h2 *ngIf="audienceDataEntity" align="center">Edit Audience</h2>
     <br>
 
-    <form nz-form [formGroup]="audienceCreateForm" class="login-form"
-      (ngSubmit)="submitCreateAudience(audienceCreateForm.value)">
+    <form nz-form [formGroup]="audienceCreateForm" class="login-form">
       <!-- <nz-form-item *ngIf="loginHttpError">
       <nz-alert nzType="error" nzMessage="Invalid credentials!" nzCloseable nzShowIcon
         (nzOnClose)="closeHttpErrorAlert()">
@@ -46,7 +46,11 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item class="flex-center">
-        <button nz-button class="login-form-button" [nzType]="'primary'">Submit Audience</button>
+        <button *ngIf="!audienceDataEntity" (click)="submitCreateAudience(audienceCreateForm.value)" nz-button
+          class="login-form-button" [nzType]="'primary'">Submit
+          Audience</button>
+        <button *ngIf="audienceDataEntity" (click)="submitEditAudience(audienceCreateForm.value)" nz-button
+          class="login-form-button" [nzType]="'primary'">Edit Audience</button>
       </nz-form-item>
       <!-- <nz-form-item>
     <nz-form-control>

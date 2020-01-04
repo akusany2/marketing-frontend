@@ -10,7 +10,8 @@
       <div class="clearfix"></div>
     </div>
     <div class="inner-content">
-      <nz-table #filterTable [nzData]="listOfDisplayAudience" [nzLoading]="audienceDataLoading">
+      <nz-table #filterTable [nzData]="listOfDisplayAudience$ | async" [nzLoading]="isListLoading$ | async"
+        [nzShowPagination]="false">
         <thead>
           <tr>
             <th>

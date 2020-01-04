@@ -1,3 +1,4 @@
+
 export interface AudienceInterface {
   // id: ID;
   _id: string;
@@ -13,4 +14,4 @@ export interface AudienceInterface {
   lastPurchaseAt: string;
 }
 
-interface CouponsInterface {}
+interface CouponsInterface { }

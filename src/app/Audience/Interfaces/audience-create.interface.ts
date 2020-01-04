@@ -1,5 +1,6 @@
 
 export interface AudienceCreateInterface {
+  _id?: string;
   userId: string;
   name: string;
   surname: string;

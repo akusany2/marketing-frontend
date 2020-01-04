@@ -14,10 +14,11 @@ const routes: Routes = [
       },
       {
         path: "create",
-        component: AudienceDetailComponent
+        component: AudienceDetailComponent,
+        data: { method: 'add' }
       },
       {
-        path: "edit",
+        path: "edit/:id",
         component: AudienceDetailComponent
       }
     ]

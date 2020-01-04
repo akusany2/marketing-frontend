@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { of } from "rxjs";
 import { apiServerUrl } from "../../config";
 import { AudienceQuery, AudienceStore } from "./audience.store";
+import { AudienceInterface } from './Interfaces/audience.interface';
 
 @Injectable()
 export class AudienceService {
@@ -10,29 +11,38 @@ export class AudienceService {
     private httpClient: HttpClient,
     private audienceStore: AudienceStore,
     private audienceQuery: AudienceQuery
-  ) {}
+  ) { }
 
-  getAllAudience(callback) {
+  getAllAudience() {
+    this.audienceStore.setLoading(true);
     const allAudience = this.httpClient
-      .get(apiServerUrl + "/audience")
+      .get<AudienceInterface[]>(apiServerUrl + "/audience")
       .subscribe(
         data => {
-          this.audienceStore.set(data as any[]);
-          callback(this.audienceQuery.getAll());
+          const audienceList = {};
+          data.forEach(audience => {
+            audienceList[audience._id] = audience;
+          });
+          this.audienceStore.set(audienceList);
+          // callback(this.audienceQuery.getAll());
+          this.audienceStore.setLoading(false);
         },
         error => {
           console.error(error);
-          callback([]);
+          this.audienceStore.setError(error);
+          this.audienceStore.setLoading(false);
         }
       );
     return this.audienceQuery.getHasCache() ? of() : allAudience;
   }
 
   deleteAudience(id) {
+    this.audienceStore.setLoading(true);
     return this.httpClient
       .delete(apiServerUrl + "/audience/" + id)
       .subscribe(data => {
         this.audienceStore.remove(audience => audience._id === id);
+        this.audienceStore.setLoading(false);
       });
   }
 }
