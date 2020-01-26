@@ -21,5 +21,5 @@ RUN npm install -g @angular/cli@7.3.9
 COPY . /web
 
 # start app
-CMD ng serve --host 0.0.0.0
+CMD node --max_old_space_size=8048 ./node_modules/@angular/cli/bin/ng serve --host 0.0.0.0
 EXPOSE 4200

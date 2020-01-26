@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = new FormGroup({
+      companyId: new FormControl("", [Validators.required]),
       username: new FormControl("", [Validators.required]),
       password: new FormControl("", [Validators.required])
     });
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit {
           this.loginHttpError.message = "Invalid credentials!";
         } else {
           this.loginService.setToken(data["token"]);
-          this.loginService.setUser(JSON.stringify(data["userObj"]));
+          this.loginService.setUser(JSON.stringify(data["user"]));
           this.router.navigate(["/dashboard"]);
         }
       },
