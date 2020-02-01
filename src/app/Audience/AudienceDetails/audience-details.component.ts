@@ -16,6 +16,7 @@ export class AudienceDetailComponent implements OnInit {
   audienceCreateForm: FormGroup;
   audienceDataEntity: AudienceInterface;
   isEditAudience: boolean;
+
   constructor(
     private createAudience: AudienceDetailService,
     private loginService: LoginService,
@@ -43,7 +44,6 @@ export class AudienceDetailComponent implements OnInit {
         }
       });
     });
-
 
   }
 

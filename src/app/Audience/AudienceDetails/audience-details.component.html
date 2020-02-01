@@ -9,11 +9,11 @@
     <br>
 
     <form nz-form [formGroup]="audienceCreateForm" class="login-form">
-      <!-- <nz-form-item *ngIf="loginHttpError">
-      <nz-alert nzType="error" nzMessage="Invalid credentials!" nzCloseable nzShowIcon
-        (nzOnClose)="closeHttpErrorAlert()">
-      </nz-alert>
-    </nz-form-item> -->
+      <!-- <nz-form-item *ngIf="audienceValidation">
+        <nz-alert nzType="error" nzMessage="{{audienceValidation.message}}" nzCloseable nzShowIcon
+          (nzOnClose)="closeAudienceValidation()">
+        </nz-alert>
+      </nz-form-item> -->
       <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" [nzOffset]="3" nzRequired nzFor="name">Name</nz-form-label>
         <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="6" nzErrorTip="Name required" nzHasFeedback>
