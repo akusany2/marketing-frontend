@@ -14,6 +14,10 @@ const routes: Routes = [
     path: "audience",
     loadChildren: () => import('./Audience/audience.module').then(mod => mod.AudienceModule)
   },
+  {
+    path: "campaign",
+    loadChildren: () => import('./Campaign/campaign.module').then(mod => mod.CampaignModule)
+  },
   // -------------- temp
   {
     path: "",

@@ -1,0 +1,20 @@
+<nz-layout class="h-100pt">
+  <nz-header class="mb-10">
+    <app-header></app-header>
+  </nz-header>
+  <nz-content>
+
+    <div nz-row [nzGutter]="8">
+      <div nz-col [nzSpan]="4" class="mb-10">
+        <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+          <nz-card-meta nzTitle="Europe Street beat" nzDescription="www.instagram.com"></nz-card-meta>
+        </nz-card>
+        <ng-template #coverTemplate>
+          <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />
+        </ng-template>
+      </div>
+    </div>
+
+  </nz-content>
+  <!-- <nz-footer>Footer</nz-footer> -->
+</nz-layout>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
+import { StateHistoryPlugin } from '@datorama/akita';
 import { LoginService } from "../../Login/login.service";
 import { AudienceQuery } from '../audience.store';
 import { AudienceCreateInterface } from "../Interfaces/audience-create.interface";
@@ -16,6 +17,7 @@ export class AudienceDetailComponent implements OnInit {
   audienceCreateForm: FormGroup;
   audienceDataEntity: AudienceInterface;
   isEditAudience: boolean;
+  stateHistory: StateHistoryPlugin;
 
   constructor(
     private createAudience: AudienceDetailService,
@@ -26,6 +28,11 @@ export class AudienceDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // if audience does not exists
+    if (!this.audienceQuery.getHasCache()) {
+      this.router.navigate(["/audience"]);
+    }
+
     this.audienceCreateForm = new FormGroup({
       name: new FormControl("", [Validators.required]),
       surname: new FormControl("", [Validators.required]),

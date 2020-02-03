@@ -20,7 +20,7 @@ export class AudienceDetailService {
   audienceCreate(audienceData) {
     const isDuplicate = this.checkDuplicateAudience(audienceData);
     if (isDuplicate) {
-      this.nzMessageService.create('error', "Duplicate Audience", { nzDuration: 5000 });
+      this.nzMessageService.create('error', "Audience already exists!", { nzDuration: 5000 });
     } else {
       this.http.post(apiServerUrl + "/audience", audienceData).subscribe(
         data => {
@@ -36,7 +36,7 @@ export class AudienceDetailService {
   audienceEdit(audienceData) {
     const isDuplicate = this.checkDuplicateAudience(audienceData);
     if (isDuplicate) {
-      this.nzMessageService.create('error', "Duplicate Audience", { nzDuration: 5000 });
+      this.nzMessageService.create('error', "Audience already exists!", { nzDuration: 5000 });
     } else {
       this.http.put(apiServerUrl + "/audience", audienceData).subscribe(
         data => {

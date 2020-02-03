@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { apiServerUrl } from "../../config";
 import { UserLoginInterface } from "./interfaces/login.interface";
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class LoginService {
   tokenKey = "token";
   userKey = "userData";
