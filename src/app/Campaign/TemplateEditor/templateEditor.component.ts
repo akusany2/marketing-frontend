@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { CampaignQuery } from '../campaign.store';
 
 @Component({
   selector: 'app-template-editor',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TemplateEditorComponent implements OnInit {
 
-  constructor() { }
+  constructor(private campaignQuery: CampaignQuery, private router: Router) { }
 
   ngOnInit() {
+    if (!this.campaignQuery.getValue().templateHtml) {
+      this.router.navigate(['/campaign']);
+    }
   }
 
 }

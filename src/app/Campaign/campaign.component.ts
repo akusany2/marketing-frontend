@@ -2,12 +2,12 @@ import { Component, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-campaign",
-  templateUrl: "./Campaign.component.html",
-  styleUrls: ["./Campaign.component.css"]
+  templateUrl: "./campaign.component.html",
+  styleUrls: ["./campaign.component.css"]
 })
 export class CampaignComponent implements OnInit {
   templates = [];
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }
