@@ -1,9 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AuthGuard } from '../sharedServices/auth.guard';
-import { CampaignComponent } from './campaign.component';
-import { ChooseTemplateComponent } from './ChooseTemplate/chooseTemplate.component';
-import { TemplateEditorComponent } from './TemplateEditor/templateEditor.component';
+import { AuthGuard } from "../sharedServices/auth.guard";
+import { CampaignComponent } from "./campaign.component";
+import { ChooseTemplateComponent } from "./ChooseTemplate/chooseTemplate.component";
 
 const routes: Routes = [
   {
@@ -12,13 +11,18 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        component: CampaignComponent,
-      }, {
+        component: CampaignComponent
+      },
+      {
         path: "choose-template",
         component: ChooseTemplateComponent
-      }, {
+      },
+      {
         path: "template-editor",
-        component: TemplateEditorComponent
+        loadChildren: () =>
+          import("./TemplateEditor/templateEditor.module").then(
+            mod => mod.TemplateEditorModule
+          )
       }
     ]
   }
@@ -28,4 +32,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CampaignRoutingModule { }
+export class CampaignRoutingModule {}
