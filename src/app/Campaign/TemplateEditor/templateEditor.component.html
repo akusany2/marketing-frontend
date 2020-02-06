@@ -36,17 +36,16 @@
           </nz-form-item>
 
           <nz-form-item class="flex-center">
-            <!-- <button *ngIf="!audienceDataEntity" (click)="submitCreateAudience(audienceCreateForm.value)" nz-button
-              class="login-form-button" [nzType]="'primary'">Submit
-              Audience</button>
-            <button *ngIf="audienceDataEntity" (click)="submitEditAudience(audienceCreateForm.value)" nz-button
+            <button (click)="submitTemplate(templateEditForm.value)" nz-button class="login-form-button"
+              [nzType]="'primary'">Submit</button>
+            <!-- <button *ngIf="audienceDataEntity" (click)="submitEditAudience(audienceCreateForm.value)" nz-button
               class="login-form-button" [nzType]="'primary'">Edit Audience</button> -->
           </nz-form-item>
 
         </form>
       </div>
       <div nz-col nzSpan="12" class="h-600">
-        <iframe id="templatePreview" src="" frameborder="0" class="w-100pt h-100pt"></iframe>
+        <iframe id="templatePreview" #templateIframe src="" frameborder="0" class="w-100pt h-100pt"></iframe>
       </div>
     </div>
   </nz-content>
