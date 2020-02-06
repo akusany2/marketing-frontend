@@ -3,9 +3,52 @@
     <app-header></app-header>
   </nz-header>
   <nz-content>
-    <h3>Template editor</h3>
 
+    <div nz-row>
+      <div nz-col nzSpan="12">
+        <h2 align="center">Template editor</h2>
+        <form nz-form [formGroup]="templateEditForm" class="">
 
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" nzRequired nzFor="templateName">Template
+              name</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10" nzErrorTip="Template name required" nzHasFeedback>
+              <input type="text" nz-input formControlName="templateName" placeholder="Template name" required />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6">Primary text
+            </nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10">
+              <textarea nz-input formControlName="primaryText" placeholder="Primary text"
+                [nzAutosize]="{ minRows: 4, maxRows: 12 }"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6">Secondary text
+            </nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10">
+              <textarea nz-input formControlName="secondaryText" placeholder="Secondary text"
+                [nzAutosize]="{ minRows: 4, maxRows: 12 }"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item class="flex-center">
+            <!-- <button *ngIf="!audienceDataEntity" (click)="submitCreateAudience(audienceCreateForm.value)" nz-button
+              class="login-form-button" [nzType]="'primary'">Submit
+              Audience</button>
+            <button *ngIf="audienceDataEntity" (click)="submitEditAudience(audienceCreateForm.value)" nz-button
+              class="login-form-button" [nzType]="'primary'">Edit Audience</button> -->
+          </nz-form-item>
+
+        </form>
+      </div>
+      <div nz-col nzSpan="12" class="h-600">
+        <iframe id="templatePreview" src="" frameborder="0" class="w-100pt h-100pt"></iframe>
+      </div>
+    </div>
   </nz-content>
   <!-- <nz-footer>Footer</nz-footer> -->
 </nz-layout>
