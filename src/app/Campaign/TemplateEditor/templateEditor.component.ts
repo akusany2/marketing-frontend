@@ -23,6 +23,11 @@ export class TemplateEditorComponent implements OnInit {
   iframeDoc;
   primaryTextSelector;
   secondaryTextSelector;
+
+  isAllDisplayDataChecked = false;
+  mapOfCheckedId: { [key: string]: boolean } = {};
+  isIndeterminate = false;
+  numberOfChecked = 0;
   constructor(
     private campaignQuery: CampaignQuery,
     private router: Router,
@@ -80,5 +85,25 @@ export class TemplateEditorComponent implements OnInit {
       templateName: templateData.templateName,
       templateHtml: this.iframeDoc.documentElement.innerHTML
     });
+  }
+
+  submitAndStartCampaign(templateData: CreateTemplateDTO) {}
+
+  refreshStatus(): void {
+    this.listOfDisplayAudience$.subscribe(data => {
+      this.isIndeterminate =
+        data.some(item => this.mapOfCheckedId[item._id]) &&
+        !this.isAllDisplayDataChecked;
+      this.numberOfChecked = data.filter(
+        item => this.mapOfCheckedId[item._id]
+      ).length;
+    });
+  }
+
+  checkAll(value: boolean): void {
+    this.listOfDisplayAudience$.subscribe(data => {
+      data.forEach(item => (this.mapOfCheckedId[item._id] = value));
+    });
+    this.refreshStatus();
   }
 }

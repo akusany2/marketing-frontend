@@ -1,4 +1,4 @@
-<nz-layout class="h-100pt">
+<nz-layout>
   <nz-header class="mb-10">
     <app-header></app-header>
   </nz-header>
@@ -35,16 +35,6 @@
             </nz-form-control>
           </nz-form-item>
 
-          <div nz-row>
-            <div nz-col nzSpan="8" nzOffset="4">
-              <button (click)="submitTemplate(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
-                class="login-form-button" [nzType]="'primary'">Submit</button>
-              <!-- <button *ngIf="audienceDataEntity" (click)="submitEditAudience(audienceCreateForm.value)" nz-button
-              class="login-form-button" [nzType]="'primary'">Edit Audience</button> -->
-            </div>
-
-          </div>
-
         </form>
       </div>
       <div nz-col nzSpan="12" class="h-600">
@@ -53,36 +43,46 @@
     </div>
     <br><br>
     <div>
-      <h2>Select Audience</h2>
+      <h2>Select Audience - <span>{{ numberOfChecked }} selected</span></h2>
       <nz-table #filterTable [nzData]="listOfDisplayAudience$ | async" [nzLoading]="isListLoading$ | async"
         [nzShowPagination]="false" class="bg-white">
         <thead>
           <tr>
+            <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"></th>
             <th>
               Name
             </th>
-            <th>Source</th>
+            <th>Phone</th>
             <th>
               Email
             </th>
-            <th>Action</th>
+
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let data of filterTable.data">
+            <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data._id]" (nzCheckedChange)="refreshStatus()"></td>
             <td>{{ data.name }}</td>
-            <td>{{ data.source }}</td>
+            <td>{{ data.phone }}</td>
             <td>{{ data.email }}</td>
-            <td>
-              <a (click)="editAudience(data._id)">Edit</a>
-              <nz-divider nzType="vertical"></nz-divider>
-              <a (click)="deleteAudience(data._id)">Delete</a>
-            </td>
+
           </tr>
         </tbody>
       </nz-table>
     </div>
 
   </nz-content>
-  <!-- <nz-footer>Footer</nz-footer> -->
+  <br><br>
+  <div nz-row>
+    <div nz-col nzSpan="8" nzOffset="1">
+      <button (click)="submitTemplate(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
+        class="login-form-button" [nzType]="'primary'">Save Campaign</button>
+      <button (click)="submitAndStartCampaign(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
+        class="login-form-button" [nzType]="'primary'">Start Campaign</button>
+      <!-- <button *ngIf="audienceDataEntity" (click)="submitEditAudience(audienceCreateForm.value)" nz-button
+      class="login-form-button" [nzType]="'primary'">Edit Audience</button> -->
+    </div>
+
+  </div>
+  <br><br>
 </nz-layout>
