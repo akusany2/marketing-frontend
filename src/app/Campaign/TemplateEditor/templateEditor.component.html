@@ -35,12 +35,15 @@
             </nz-form-control>
           </nz-form-item>
 
-          <nz-form-item class="flex-center">
-            <button (click)="submitTemplate(templateEditForm.value)" nz-button class="login-form-button"
-              [nzType]="'primary'">Submit</button>
-            <!-- <button *ngIf="audienceDataEntity" (click)="submitEditAudience(audienceCreateForm.value)" nz-button
+          <div nz-row>
+            <div nz-col nzSpan="8" nzOffset="4">
+              <button (click)="submitTemplate(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
+                class="login-form-button" [nzType]="'primary'">Submit</button>
+              <!-- <button *ngIf="audienceDataEntity" (click)="submitEditAudience(audienceCreateForm.value)" nz-button
               class="login-form-button" [nzType]="'primary'">Edit Audience</button> -->
-          </nz-form-item>
+            </div>
+
+          </div>
 
         </form>
       </div>
@@ -48,6 +51,38 @@
         <iframe id="templatePreview" #templateIframe src="" frameborder="0" class="w-100pt h-100pt"></iframe>
       </div>
     </div>
+    <br><br>
+    <div>
+      <h2>Select Audience</h2>
+      <nz-table #filterTable [nzData]="listOfDisplayAudience$ | async" [nzLoading]="isListLoading$ | async"
+        [nzShowPagination]="false" class="bg-white">
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>Source</th>
+            <th>
+              Email
+            </th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of filterTable.data">
+            <td>{{ data.name }}</td>
+            <td>{{ data.source }}</td>
+            <td>{{ data.email }}</td>
+            <td>
+              <a (click)="editAudience(data._id)">Edit</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="deleteAudience(data._id)">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+
   </nz-content>
   <!-- <nz-footer>Footer</nz-footer> -->
 </nz-layout>

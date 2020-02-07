@@ -1,4 +1,5 @@
 export interface UserProfileInterface {
+  companyId: string;
   username: string;
   name: string;
   surname: string;

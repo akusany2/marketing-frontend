@@ -1,9 +1,14 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
+import { Observable } from "rxjs";
+import { AudienceService } from "../../Audience/audience.service";
+import { AudienceInterface } from "../../Audience/Interfaces/audience.interface";
+import { UserProfileQuery } from "../../User.store";
 import { CampaignQuery } from "../campaign.store";
-import { CreateTemplateDTO } from '../interfaces/template.interface';
-import { TemplateEditorService } from './templateEditor.service';
+import { CreateTemplateDTO } from "../interfaces/template.interface";
+import { AudienceQuery } from "./../../Audience/audience.store";
+import { TemplateEditorService } from "./templateEditor.service";
 
 @Component({
   selector: "app-template-editor",
@@ -11,12 +16,21 @@ import { TemplateEditorService } from './templateEditor.service';
   styleUrls: ["./templateEditor.component.css"]
 })
 export class TemplateEditorComponent implements OnInit {
-  @ViewChild('templateIframe', { static: true }) templateIframe: ElementRef;
+  @ViewChild("templateIframe", { static: true }) templateIframe: ElementRef;
   templateEditForm: FormGroup;
+  listOfDisplayAudience$: Observable<AudienceInterface[]>;
+  isListLoading$: Observable<boolean>;
   iframeDoc;
   primaryTextSelector;
   secondaryTextSelector;
-  constructor(private campaignQuery: CampaignQuery, private router: Router, private templateEditorService: TemplateEditorService) { }
+  constructor(
+    private campaignQuery: CampaignQuery,
+    private router: Router,
+    private templateEditorService: TemplateEditorService,
+    private userProfileQuery: UserProfileQuery,
+    private audienceQuery: AudienceQuery,
+    private audienceService: AudienceService
+  ) {}
 
   ngOnInit() {
     this.templateEditForm = new FormGroup({
@@ -28,8 +42,13 @@ export class TemplateEditorComponent implements OnInit {
     if (!this.campaignQuery.getValue().templateHtml) {
       this.router.navigate(["/campaign"]);
     } else {
+      if (!this.audienceQuery.getHasCache()) {
+        this.audienceService.getAllAudience();
+      }
       this.readyTemplatePreview();
       this.handleTextChanges();
+      this.isListLoading$ = this.audienceQuery.selectLoading();
+      this.listOfDisplayAudience$ = this.audienceQuery.selectAll();
     }
   }
 
@@ -57,6 +76,7 @@ export class TemplateEditorComponent implements OnInit {
 
   submitTemplate(templateData: CreateTemplateDTO) {
     this.templateEditorService.createTemplate({
+      companyId: this.userProfileQuery.getEntity("userProfile").companyId,
       templateName: templateData.templateName,
       templateHtml: this.iframeDoc.documentElement.innerHTML
     });

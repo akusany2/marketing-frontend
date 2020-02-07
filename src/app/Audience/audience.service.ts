@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { of } from "rxjs";
 import { apiServerUrl } from "../../config";
 import { AudienceQuery, AudienceStore } from "./audience.store";
-import { AudienceInterface } from './Interfaces/audience.interface';
+import { AudienceInterface } from "./Interfaces/audience.interface";
 
 @Injectable()
 export class AudienceService {
@@ -11,7 +11,7 @@ export class AudienceService {
     private httpClient: HttpClient,
     private audienceStore: AudienceStore,
     private audienceQuery: AudienceQuery
-  ) { }
+  ) {}
 
   getAllAudience() {
     this.audienceStore.setLoading(true);

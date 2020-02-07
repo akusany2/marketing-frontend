@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { StatusMessageEnum } from "../sharedServices/status-message.enum";
+import { UserProfileStore } from "../User.store";
 import { UserLoginInterface } from "./interfaces/login.interface";
 import { LoginService } from "./login.service";
 
@@ -14,7 +15,11 @@ import { LoginService } from "./login.service";
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loginHttpError = { status: false, message: "" };
-  constructor(private loginService: LoginService, private router: Router) { }
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private userProfileStore: UserProfileStore
+  ) {}
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -40,12 +45,14 @@ export class LoginComponent implements OnInit {
         } else {
           this.loginService.setToken(data["token"]);
           this.loginService.setUser(JSON.stringify(data["user"]));
+          this.userProfileStore.set({ userProfile: data["user"] });
           this.router.navigate(["/dashboard"]);
         }
       },
       err => {
         this.loginHttpError.status = true;
-        this.loginHttpError.message = "Something went wrong, please contact Admin";
+        this.loginHttpError.message =
+          "Something went wrong, please contact Admin";
         return Observable.throw(err);
       }
     );

@@ -10,7 +10,6 @@ import { TokenInterceptor } from "../sharedServices/token-interceptor";
 import { AudienceRoutingModule } from "./audience-routing.module";
 import { AudienceComponent } from "./audience.component";
 import { AudienceService } from "./audience.service";
-import { AudienceQuery, AudienceStore } from "./audience.store";
 import { AudienceDetailComponent } from "./AudienceDetails/audience-details.component";
 import { AudienceDetailService } from "./AudienceDetails/audience-details.service";
 
@@ -32,9 +31,7 @@ import { AudienceDetailService } from "./AudienceDetails/audience-details.servic
       useClass: TokenInterceptor,
       multi: true
     },
-    AuthGuard,
-    AudienceStore,
-    AudienceQuery
+    AuthGuard
   ]
 })
 export class AudienceModule {}

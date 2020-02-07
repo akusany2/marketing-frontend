@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Router } from "@angular/router";
+import { Observable } from "rxjs";
 import { AudienceService } from "./audience.service";
-import { AudienceQuery, AudienceStore } from "./audience.store";
-import { AudienceInterface } from './Interfaces/audience.interface';
+import { AudienceQuery } from "./audience.store";
+import { AudienceInterface } from "./Interfaces/audience.interface";
 
 @Component({
   selector: "app-audience",
@@ -13,10 +13,9 @@ import { AudienceInterface } from './Interfaces/audience.interface';
 export class AudienceComponent implements OnInit {
   constructor(
     private audienceService: AudienceService,
-    private audienceStore: AudienceStore,
     private audienceQuery: AudienceQuery,
     private router: Router
-  ) { }
+  ) {}
   sortName: string | null = null;
   sortValue: string | null = null;
 
@@ -36,6 +35,8 @@ export class AudienceComponent implements OnInit {
   ngOnInit(): void {
     this.isListLoading$ = this.audienceQuery.selectLoading();
     this.listOfDisplayAudience$ = this.audienceQuery.selectAll();
-    this.audienceService.getAllAudience();
+    if (!this.audienceQuery.getHasCache()) {
+      this.audienceService.getAllAudience();
+    }
   }
 }

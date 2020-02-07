@@ -5,7 +5,7 @@ import {
   QueryEntity,
   StoreConfig
 } from "@datorama/akita";
-import { UserProfileInterface } from "../Login/interfaces/user.interface";
+import { UserProfileInterface } from "./interfaces/user.interface";
 
 export interface UserProfileState
   extends EntityState<UserProfileInterface, number> {}
