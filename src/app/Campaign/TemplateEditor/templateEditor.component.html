@@ -48,7 +48,8 @@
         [nzShowPagination]="false" class="bg-white">
         <thead>
           <tr>
-            <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"></th>
+            <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"
+              [nzIndeterminate]="isIndeterminate"></th>
             <th>
               Name
             </th>
@@ -78,9 +79,7 @@
       <button (click)="submitTemplate(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
         class="login-form-button" [nzType]="'primary'">Save Campaign</button>
       <button (click)="submitAndStartCampaign(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
-        class="login-form-button" [nzType]="'primary'">Start Campaign</button>
-      <!-- <button *ngIf="audienceDataEntity" (click)="submitEditAudience(audienceCreateForm.value)" nz-button
-      class="login-form-button" [nzType]="'primary'">Edit Audience</button> -->
+        class="login-form-button" [nzType]="'primary'">Save and Start Campaign</button>
     </div>
 
   </div>

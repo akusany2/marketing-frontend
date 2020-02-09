@@ -80,10 +80,15 @@ export class TemplateEditorComponent implements OnInit {
   }
 
   submitTemplate(templateData: CreateTemplateDTO) {
-    this.templateEditorService.createTemplate({
-      companyId: this.userProfileQuery.getEntity("userProfile").companyId,
-      templateName: templateData.templateName,
-      templateHtml: this.iframeDoc.documentElement.innerHTML
+    this.listOfDisplayAudience$.subscribe(data => {
+      this.templateEditorService.createTemplate({
+        companyId: this.userProfileQuery.getEntity("userProfile").companyId,
+        templateName: templateData.templateName,
+        templateHtml: this.iframeDoc.documentElement.innerHTML,
+        audiences: data
+          .filter(item => this.mapOfCheckedId[item._id])
+          .map(item => item._id)
+      });
     });
   }
 
