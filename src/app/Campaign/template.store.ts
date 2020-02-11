@@ -7,6 +7,9 @@ import {
 } from "@datorama/akita";
 import { CreateTemplateDTO } from "./interfaces/template.interface";
 
+const inittialState = {
+  active: null
+};
 export interface TemplateState extends EntityState<CreateTemplateDTO, number> {}
 
 @Injectable({ providedIn: "root" })
@@ -16,7 +19,7 @@ export class TemplateStore extends EntityStore<
   CreateTemplateDTO
 > {
   constructor() {
-    super();
+    super(inittialState);
   }
 }
 

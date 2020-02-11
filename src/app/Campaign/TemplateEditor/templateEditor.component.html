@@ -41,36 +41,7 @@
         <iframe id="templatePreview" #templateIframe src="" frameborder="0" class="w-100pt h-100pt"></iframe>
       </div>
     </div>
-    <br><br>
-    <div>
-      <h2>Select Audience - <span>{{ numberOfChecked }} selected</span></h2>
-      <nz-table #filterTable [nzData]="listOfDisplayAudience$ | async" [nzLoading]="isListLoading$ | async"
-        [nzShowPagination]="false" class="bg-white">
-        <thead>
-          <tr>
-            <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"
-              [nzIndeterminate]="isIndeterminate"></th>
-            <th>
-              Name
-            </th>
-            <th>Phone</th>
-            <th>
-              Email
-            </th>
 
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let data of filterTable.data">
-            <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data._id]" (nzCheckedChange)="refreshStatus()"></td>
-            <td>{{ data.name }}</td>
-            <td>{{ data.phone }}</td>
-            <td>{{ data.email }}</td>
-
-          </tr>
-        </tbody>
-      </nz-table>
-    </div>
 
   </nz-content>
   <br><br>
@@ -78,8 +49,8 @@
     <div nz-col nzSpan="8" nzOffset="1">
       <button (click)="submitTemplate(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
         class="login-form-button" [nzType]="'primary'">Save Campaign</button>
-      <button (click)="submitAndStartCampaign(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
-        class="login-form-button" [nzType]="'primary'">Save and Start Campaign</button>
+      <button (click)="submitAndSelectAudience(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
+        class="login-form-button" [nzType]="'primary'">Save Campaign and Select Audience</button>
     </div>
 
   </div>

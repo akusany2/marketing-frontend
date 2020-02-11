@@ -1,6 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
+import { CampaignService } from "../Campaign/campaign.service";
 import { HeaderModule } from "../Header/header.module";
 import { LoginService } from "../Login/login.service";
 import { NotFoundComponent } from "../SharedComponent/not-found.component";
@@ -26,6 +27,7 @@ import { AudienceDetailService } from "./AudienceDetails/audience-details.servic
     LoginService,
     AudienceService,
     AudienceDetailService,
+    CampaignService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

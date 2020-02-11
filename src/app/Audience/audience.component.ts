@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
+import { CampaignService } from "../Campaign/campaign.service";
 import { AudienceService } from "./audience.service";
 import { AudienceQuery } from "./audience.store";
 import { AudienceInterface } from "./Interfaces/audience.interface";
@@ -14,13 +15,21 @@ export class AudienceComponent implements OnInit {
   constructor(
     private audienceService: AudienceService,
     private audienceQuery: AudienceQuery,
-    private router: Router
+    private campaignService: CampaignService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
   sortName: string | null = null;
   sortValue: string | null = null;
 
   listOfDisplayAudience$: Observable<AudienceInterface[]>;
   isListLoading$: Observable<boolean>;
+
+  isAllDisplayDataChecked = false;
+  mapOfCheckedId: { [key: string]: boolean } = {};
+  isIndeterminate = false;
+  numberOfChecked = 0;
+  isEditable = false;
 
   deleteAudience(id) {
     if (id && this.listOfDisplayAudience$) {
@@ -32,11 +41,41 @@ export class AudienceComponent implements OnInit {
     this.router.navigate(["/audience/edit/" + id]);
   }
 
+  refreshStatus(): void {
+    this.listOfDisplayAudience$.subscribe(data => {
+      this.isIndeterminate =
+        data.some(item => this.mapOfCheckedId[item._id]) &&
+        !this.isAllDisplayDataChecked;
+      this.numberOfChecked = data.filter(
+        item => this.mapOfCheckedId[item._id]
+      ).length;
+    });
+  }
+
+  checkAll(value: boolean): void {
+    this.listOfDisplayAudience$.subscribe(data => {
+      data.forEach(item => (this.mapOfCheckedId[item._id] = value));
+    });
+    this.refreshStatus();
+  }
+  startCampaign() {
+    this.listOfDisplayAudience$.subscribe(data => {
+      this.campaignService.updateAudienceInTemplate(
+        data.filter(item => this.mapOfCheckedId[item._id]).map(item => item._id)
+      );
+    });
+  }
   ngOnInit(): void {
     this.isListLoading$ = this.audienceQuery.selectLoading();
     this.listOfDisplayAudience$ = this.audienceQuery.selectAll();
     if (!this.audienceQuery.getHasCache()) {
       this.audienceService.getAllAudience();
     }
+
+    this.route.data.subscribe(data => {
+      if (data.method === "selectAudience") {
+        this.isEditable = true;
+      }
+    });
   }
 }

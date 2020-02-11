@@ -24,10 +24,6 @@ export class TemplateEditorComponent implements OnInit {
   primaryTextSelector;
   secondaryTextSelector;
 
-  isAllDisplayDataChecked = false;
-  mapOfCheckedId: { [key: string]: boolean } = {};
-  isIndeterminate = false;
-  numberOfChecked = 0;
   constructor(
     private campaignQuery: CampaignQuery,
     private router: Router,
@@ -78,37 +74,20 @@ export class TemplateEditorComponent implements OnInit {
       this.secondaryTextSelector.innerHTML = form.secondaryText;
     });
   }
-
+  saveTemplate(templateData) {
+    this.templateEditorService.createTemplate({
+      companyId: this.userProfileQuery.getEntity("userProfile").companyId,
+      templateName: templateData.templateName,
+      templateHtml: this.iframeDoc.documentElement.innerHTML
+    });
+  }
   submitTemplate(templateData: CreateTemplateDTO) {
-    this.listOfDisplayAudience$.subscribe(data => {
-      this.templateEditorService.createTemplate({
-        companyId: this.userProfileQuery.getEntity("userProfile").companyId,
-        templateName: templateData.templateName,
-        templateHtml: this.iframeDoc.documentElement.innerHTML,
-        audiences: data
-          .filter(item => this.mapOfCheckedId[item._id])
-          .map(item => item._id)
-      });
-    });
+    this.saveTemplate(templateData);
+    this.router.navigate(["/template"]);
   }
 
-  submitAndStartCampaign(templateData: CreateTemplateDTO) {}
-
-  refreshStatus(): void {
-    this.listOfDisplayAudience$.subscribe(data => {
-      this.isIndeterminate =
-        data.some(item => this.mapOfCheckedId[item._id]) &&
-        !this.isAllDisplayDataChecked;
-      this.numberOfChecked = data.filter(
-        item => this.mapOfCheckedId[item._id]
-      ).length;
-    });
-  }
-
-  checkAll(value: boolean): void {
-    this.listOfDisplayAudience$.subscribe(data => {
-      data.forEach(item => (this.mapOfCheckedId[item._id] = value));
-    });
-    this.refreshStatus();
+  submitAndSelectAudience(templateData: CreateTemplateDTO) {
+    this.saveTemplate(templateData);
+    this.router.navigate(["/campaign/template-editor/audience"]);
   }
 }

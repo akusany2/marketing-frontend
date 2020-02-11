@@ -12,6 +12,7 @@ import { environment } from "../environments/environment";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { AudienceQuery, AudienceStore } from "./Audience/audience.store";
+import { TemplateQuery, TemplateStore } from "./Campaign/template.store";
 import { LoginService } from "./Login/login.service";
 import { SharedModule } from "./sharedModule/shared.module";
 import { UserProfileQuery, UserProfileStore } from "./User.store";
@@ -19,7 +20,9 @@ const sharedStores = [
   UserProfileStore,
   UserProfileQuery,
   AudienceStore,
-  AudienceQuery
+  AudienceQuery,
+  TemplateStore,
+  TemplateQuery
 ];
 registerLocaleData(en);
 
