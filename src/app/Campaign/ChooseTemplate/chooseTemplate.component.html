@@ -6,7 +6,7 @@
     <h3>Choose template</h3>
     <div nz-row [nzGutter]="8">
       <div nz-col [nzSpan]="4" class="mb-10" *ngFor="let template of templates"
-        (click)="selectTemplate(null, template.name)">
+        (click)="selectTemplate(null, template.name, template.templateId)">
         <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
           <nz-card-meta nzTitle={{template.name}}></nz-card-meta>
         </nz-card>

@@ -8,7 +8,7 @@ import { ChooseTemplateService } from "./chooseTemplate.service";
 })
 export class ChooseTemplateComponent implements OnInit {
   templates = [];
-  constructor(private chooseTemplateService: ChooseTemplateService) { }
+  constructor(private chooseTemplateService: ChooseTemplateService) {}
 
   ngOnInit() {
     this.getAllTemplates();
@@ -20,7 +20,7 @@ export class ChooseTemplateComponent implements OnInit {
     });
   }
 
-  selectTemplate(type, name) {
-    this.chooseTemplateService.getTemplate(type, name);
+  selectTemplate(type, name, templateId) {
+    this.chooseTemplateService.getTemplate(type, name, templateId);
   }
 }

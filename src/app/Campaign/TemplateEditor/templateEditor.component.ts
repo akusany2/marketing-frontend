@@ -62,22 +62,26 @@ export class TemplateEditorComponent implements OnInit {
     this.secondaryTextSelector = this.iframeDoc.querySelector("#secondaryText");
 
     this.templateEditForm.patchValue({
-      // templateName: "asd",
-      primaryText: this.primaryTextSelector.innerHTML,
-      secondaryText: this.secondaryTextSelector.innerHTML
+      primaryText: this.primaryTextSelector.innerText,
+      secondaryText: this.secondaryTextSelector.innerText
     });
   }
 
   handleTextChanges() {
     this.templateEditForm.valueChanges.subscribe(form => {
-      this.primaryTextSelector.innerHTML = form.primaryText;
-      this.secondaryTextSelector.innerHTML = form.secondaryText;
+      this.primaryTextSelector.innerText = form.primaryText;
+      this.secondaryTextSelector.innerText = form.secondaryText;
     });
   }
   saveTemplate(templateData) {
     this.templateEditorService.createTemplate({
       companyId: this.userProfileQuery.getEntity("userProfile").companyId,
       templateName: templateData.templateName,
+      templateId: this.campaignQuery.getValue().templateId,
+      templateMetaData: {
+        primaryText: this.primaryTextSelector.innerText,
+        secondaryText: this.secondaryTextSelector.innerText
+      },
       templateHtml: this.iframeDoc.documentElement.innerHTML
     });
   }
