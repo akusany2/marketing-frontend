@@ -5,15 +5,15 @@ import { Observable } from "rxjs";
 import { AudienceService } from "../../Audience/audience.service";
 import { AudienceInterface } from "../../Audience/Interfaces/audience.interface";
 import { UserProfileQuery } from "../../User.store";
-import { CampaignQuery } from "../campaign.store";
 import { CreateTemplateDTO } from "../interfaces/template.interface";
+import { TemplateQuery } from "../template.store";
 import { AudienceQuery } from "./../../Audience/audience.store";
 import { TemplateEditorService } from "./templateEditor.service";
 
 @Component({
   selector: "app-template-editor",
   templateUrl: "./templateEditor.component.html",
-  styleUrls: ["./templateEditor.component.css"]
+  styleUrls: ["./templateEditor.component.scss"]
 })
 export class TemplateEditorComponent implements OnInit {
   @ViewChild("templateIframe", { static: true }) templateIframe: ElementRef;
@@ -25,7 +25,7 @@ export class TemplateEditorComponent implements OnInit {
   secondaryTextSelector;
 
   constructor(
-    private campaignQuery: CampaignQuery,
+    private templateQuery: TemplateQuery,
     private router: Router,
     private templateEditorService: TemplateEditorService,
     private userProfileQuery: UserProfileQuery,
@@ -40,7 +40,7 @@ export class TemplateEditorComponent implements OnInit {
       secondaryText: new FormControl("Secondary text")
     });
 
-    if (!this.campaignQuery.getValue().templateHtml) {
+    if (!this.templateQuery.getValue().templateHtml) {
       this.router.navigate(["/campaign"]);
     } else {
       if (!this.audienceQuery.getHasCache()) {
@@ -56,7 +56,7 @@ export class TemplateEditorComponent implements OnInit {
   readyTemplatePreview() {
     this.iframeDoc = this.templateIframe.nativeElement.contentDocument;
     this.iframeDoc.open();
-    this.iframeDoc.write(this.campaignQuery.getValue().templateHtml);
+    this.iframeDoc.write(this.templateQuery.getValue().templateHtml);
     this.iframeDoc.close();
     this.primaryTextSelector = this.iframeDoc.querySelector("#primaryText");
     this.secondaryTextSelector = this.iframeDoc.querySelector("#secondaryText");
@@ -77,7 +77,7 @@ export class TemplateEditorComponent implements OnInit {
     this.templateEditorService.createTemplate({
       companyId: this.userProfileQuery.getEntity("userProfile").companyId,
       templateName: templateData.templateName,
-      templateId: this.campaignQuery.getValue().templateId,
+      sgTemplateId: this.templateQuery.getValue().templateId,
       templateMetaData: {
         primaryText: this.primaryTextSelector.innerText,
         secondaryText: this.secondaryTextSelector.innerText
@@ -87,7 +87,6 @@ export class TemplateEditorComponent implements OnInit {
   }
   submitTemplate(templateData: CreateTemplateDTO) {
     this.saveTemplate(templateData);
-    this.router.navigate(["/template"]);
   }
 
   submitAndSelectAudience(templateData: CreateTemplateDTO) {

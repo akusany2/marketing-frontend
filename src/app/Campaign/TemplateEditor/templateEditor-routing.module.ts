@@ -16,7 +16,7 @@ const routes: Routes = [
       {
         path: "audience",
         component: AudienceComponent,
-        data: { method: "selectAudience" }
+        data: { method: "selectAudience", from: "templateEditor" }
       }
     ]
   }

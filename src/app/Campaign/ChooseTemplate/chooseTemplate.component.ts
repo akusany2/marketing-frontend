@@ -1,4 +1,6 @@
 import { Component, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { CampaignStore } from "../campaign.store";
 import { ChooseTemplateService } from "./chooseTemplate.service";
 
 @Component({
@@ -8,10 +10,18 @@ import { ChooseTemplateService } from "./chooseTemplate.service";
 })
 export class ChooseTemplateComponent implements OnInit {
   templates = [];
-  constructor(private chooseTemplateService: ChooseTemplateService) {}
+  campaignInitForm: FormGroup;
+
+  constructor(
+    private chooseTemplateService: ChooseTemplateService,
+    private campaignStore: CampaignStore
+  ) {}
 
   ngOnInit() {
     this.getAllTemplates();
+    this.campaignInitForm = new FormGroup({
+      campaignName: new FormControl("", [Validators.required])
+    });
   }
 
   getAllTemplates() {
@@ -21,6 +31,10 @@ export class ChooseTemplateComponent implements OnInit {
   }
 
   selectTemplate(type, name, templateId) {
+    this.campaignStore.upsert(0, {
+      name: this.campaignInitForm.value.campaignName
+    });
+    this.campaignStore.setActive(0);
     this.chooseTemplateService.getTemplate(type, name, templateId);
   }
 }

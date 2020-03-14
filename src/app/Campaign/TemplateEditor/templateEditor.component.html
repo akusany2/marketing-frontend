@@ -9,6 +9,14 @@
         <h2 align="center">Template editor</h2>
         <form nz-form [formGroup]="templateEditForm" class="">
 
+          <!-- <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" nzRequired nzFor="campaignName">Campaign
+              name</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10" nzErrorTip="Campaign name required" nzHasFeedback>
+              <input type="text" nz-input formControlName="campaignName" placeholder="Campaign name" required />
+            </nz-form-control>
+          </nz-form-item> -->
+
           <nz-form-item>
             <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" nzRequired nzFor="templateName">Template
               name</nz-form-label>
@@ -36,23 +44,24 @@
           </nz-form-item>
 
         </form>
+        <br><br>
+        <div nz-row>
+          <div nz-col nzSpan="12" nzOffset="1">
+            <!-- <button (click)="submitTemplate(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
+              class="login-form-button" [nzType]="'primary'">Save Template</button> -->
+            <button (click)="submitAndSelectAudience(templateEditForm.value)" [disabled]="!templateEditForm.valid"
+              nz-button class="login-form-button" [nzType]="'primary'">Save Template and Select Audience</button>
+          </div>
+
+        </div>
       </div>
-      <div nz-col nzSpan="12" class="h-600">
-        <iframe id="templatePreview" #templateIframe src="" frameborder="0" class="w-100pt h-100pt"></iframe>
+      <div nz-col nzSpan="12">
+        <iframe id="templatePreview" #templateIframe src="" frameborder="0" class="template-editor-iframe"></iframe>
       </div>
     </div>
 
 
   </nz-content>
-  <br><br>
-  <div nz-row>
-    <div nz-col nzSpan="8" nzOffset="1">
-      <button (click)="submitTemplate(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
-        class="login-form-button" [nzType]="'primary'">Save Campaign</button>
-      <button (click)="submitAndSelectAudience(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
-        class="login-form-button" [nzType]="'primary'">Save Campaign and Select Audience</button>
-    </div>
 
-  </div>
   <br><br>
 </nz-layout>

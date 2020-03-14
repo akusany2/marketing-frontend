@@ -3,15 +3,15 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { of } from "rxjs";
 import { apiServerUrl } from "../../../config";
-import { CampaignQuery, CampaignStore } from "../campaign.store";
+import { TemplateQuery, TemplateStore } from "../template.store";
 
 @Injectable()
 export class ChooseTemplateService {
   constructor(
     private readonly httpClient: HttpClient,
-    private campaignStore: CampaignStore,
+    private templateStore: TemplateStore,
     private router: Router,
-    private campaignQuery: CampaignQuery
+    private templateQuery: TemplateQuery
   ) {}
 
   getAllTemplates() {
@@ -25,7 +25,7 @@ export class ChooseTemplateService {
       })
       .subscribe(
         data => {
-          this.campaignStore.update({
+          this.templateStore.update({
             templateName: name,
             templateHtml: data,
             templateId: id
@@ -36,6 +36,6 @@ export class ChooseTemplateService {
           console.log(error);
         }
       );
-    return this.campaignQuery.getHasCache() ? of() : template;
+    return this.templateQuery.getHasCache() ? of() : template;
   }
 }

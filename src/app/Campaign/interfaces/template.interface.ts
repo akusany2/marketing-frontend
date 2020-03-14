@@ -1,9 +1,9 @@
 export interface CreateTemplateDTO {
   companyId: string;
   templateName: string;
-  templateId: string;
+  sgTemplateId: string;
   templateMetaData: object;
   templateHtml: string;
   description?: string;
-  audiences?: string[];
+  // audiences?: string[];
 }

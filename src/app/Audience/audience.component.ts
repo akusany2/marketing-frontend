@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Observable } from "rxjs";
 import { CampaignService } from "../Campaign/campaign.service";
+import { CampaignQuery } from "../Campaign/campaign.store";
 import { AudienceService } from "./audience.service";
 import { AudienceQuery } from "./audience.store";
 import { AudienceInterface } from "./Interfaces/audience.interface";
@@ -16,6 +17,7 @@ export class AudienceComponent implements OnInit {
     private audienceService: AudienceService,
     private audienceQuery: AudienceQuery,
     private campaignService: CampaignService,
+    private campaignQuery: CampaignQuery,
     private router: Router,
     private route: ActivatedRoute
   ) {}
@@ -30,6 +32,7 @@ export class AudienceComponent implements OnInit {
   isIndeterminate = false;
   numberOfChecked = 0;
   isEditable = false;
+  campaignSelection = false;
 
   deleteAudience(id) {
     if (id && this.listOfDisplayAudience$) {
@@ -58,10 +61,14 @@ export class AudienceComponent implements OnInit {
     });
     this.refreshStatus();
   }
-  startCampaign() {
+  addAudienceToCampaign() {
     this.listOfDisplayAudience$.subscribe(data => {
-      this.campaignService.updateAudienceInTemplate(
-        data.filter(item => this.mapOfCheckedId[item._id]).map(item => item._id)
+      this.campaignService.addAudienceToCampaign(
+        data
+          .filter(item => this.mapOfCheckedId[item._id])
+          .map(item => {
+            return { email: item.email };
+          })
       );
     });
   }
@@ -73,8 +80,15 @@ export class AudienceComponent implements OnInit {
     }
 
     this.route.data.subscribe(data => {
-      if (data.method === "selectAudience") {
-        this.isEditable = true;
+      if (!this.campaignQuery.hasActive()) {
+        this.router.navigate(["/campaign"]);
+      } else {
+        if (data.method === "selectAudience") {
+          this.isEditable = true;
+        }
+        if (data.method.from && data.method.from == "templateEditor") {
+          this.campaignSelection = true;
+        }
       }
     });
   }
