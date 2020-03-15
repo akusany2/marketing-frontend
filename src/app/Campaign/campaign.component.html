@@ -3,28 +3,38 @@
     <app-header></app-header>
   </nz-header>
   <nz-content>
-    <div class="wrap">
-      <nz-page-header>
-        <nz-page-header-title>Campaign dashboard</nz-page-header-title>
-        <nz-page-header-subtitle>Details about the campaigns</nz-page-header-subtitle>
-        <nz-page-header-extra>
-          <!-- <button nz-button>Operation</button>
-          <button nz-button>Operation</button> -->
-          <button nz-button nzType="primary" routerLink="/campaign/choose-template">New Campaign</button>
-        </nz-page-header-extra>
-        <nz-page-header-content>
-          <nz-descriptions [nzColumn]="3">
-            <nz-descriptions-item nzTitle="Created" [nzSpan]="1">Lili Qu</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Association" [nzSpan]="1"><a>421421</a></nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Creation Time" [nzSpan]="1">2017-01-10</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Effective Time" [nzSpan]="1">2017-10-10</nz-descriptions-item>
-            <nz-descriptions-item nzTitle="Remarks" [nzSpan]="2">
-              Gonghu Road, Xihu District, Hangzhou, Zhejiang, China
-            </nz-descriptions-item>
-          </nz-descriptions>
-        </nz-page-header-content>
-      </nz-page-header>
-    </div>
+    <nz-empty [nzNotFoundImage]="
+        'https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original'
+      " [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl"
+      *ngIf="!showCampaign$ | async; else showCampaigns">
+      <ng-template #contentTpl>
+        <span> No campaigns found </span>
+      </ng-template>
+      <ng-template #footerTpl>
+        <button nz-button nzType="primary" routerLink="/campaign/choose-template">New Campaign</button>
+      </ng-template>
+    </nz-empty>
+
+
+    <ng-template #showCampaigns class="wrap">
+      <button nz-button nzType="primary" routerLink="/campaign/choose-template" class="pull-right">New Campaign</button>
+      <br><br>
+      <nz-row [nzGutter]="16" class="bg-white p-15 mb-10" *ngFor="let campaign of campaignList$ | async">
+        <nz-col [nzSpan]="6">
+          <nz-statistic [nzValue]="campaign.name" [nzTitle]="'Campaign name'"></nz-statistic>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-statistic [nzValue]="campaign.audiences.length | number" [nzTitle]="'Total Audiences'"></nz-statistic>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-statistic [nzValue]="campaign.audiences.length | number" [nzTitle]="'Total Audiences'"></nz-statistic>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-statistic [nzValue]="2019.111 | number: '1.0-2'" [nzTitle]="'Account Balance (CNY)'"></nz-statistic>
+        </nz-col>
+      </nz-row>
+
+    </ng-template>
   </nz-content>
   <!-- <nz-footer>Footer</nz-footer> -->
 </nz-layout>

@@ -80,15 +80,17 @@ export class AudienceComponent implements OnInit {
     }
 
     this.route.data.subscribe(data => {
-      if (!this.campaignQuery.hasActive()) {
-        this.router.navigate(["/campaign"]);
+      if (data.method === "selectAudience" && this.campaignQuery.hasActive()) {
+        this.isEditable = true;
       } else {
-        if (data.method === "selectAudience") {
-          this.isEditable = true;
-        }
-        if (data.method.from && data.method.from == "templateEditor") {
-          this.campaignSelection = true;
-        }
+        this.router.navigate(["/audience"]);
+      }
+      if (
+        data.method &&
+        data.method.from &&
+        data.method.from == "templateEditor"
+      ) {
+        this.campaignSelection = true;
       }
     });
   }
