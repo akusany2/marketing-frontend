@@ -26,9 +26,11 @@ export class CampaignService {
   getStats(audiences) {
     let stats = {
       delivered: 0,
-      opened: 0
+      opened: 0,
+      bounce: 0
     };
-    return {};
+    audiences.forEach(audience => {});
+    return stats;
   }
   getAllCampaign() {
     const allCampaign = this.httpClient
