@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { of } from "rxjs";
 import { apiServerUrl } from "../../config";
 import { LoginService } from "../Login/login.service";
 import { CampaignQuery, CampaignStore } from "./campaign.store";
@@ -21,19 +20,29 @@ export class CampaignService {
   ) {}
 
   createCampaign() {
-    this.httpClient.post(apiServerUrl + "/campaign", { something: 123 });
+    // this.httpClient.post(apiServerUrl + "/campaign", { something: 123 });
   }
   getStats(audiences) {
     let stats = {
       delivered: 0,
-      opened: 0,
+      open: 0,
       bounce: 0
     };
-    audiences.forEach(audience => {});
+    audiences.forEach(audience => {
+      if (audience.event) {
+        stats.delivered = audience.event["delivered"]
+          ? stats.delivered + 1
+          : stats.delivered;
+        stats.open = audience.event["open"] ? stats.open + 1 : stats.open;
+        stats.bounce = audience.event["bounce"]
+          ? stats.bounce + 1
+          : stats.bounce;
+      }
+    });
     return stats;
   }
   getAllCampaign() {
-    const allCampaign = this.httpClient
+    return this.httpClient
       .post<CampaignInterface[]>(apiServerUrl + "/campaign/all", {
         companyId: this.loginService.getUser().companyId
       })
@@ -41,7 +50,7 @@ export class CampaignService {
         campaigns => {
           const campaignList = {};
           campaigns.forEach(campaign => {
-            // campaign.stats = this.getStats(campaign.audiences);
+            campaign.stats = this.getStats(campaign.audiences);
             campaignList[campaign._id] = campaign;
           });
           this.campaignStore.set(campaignList);
@@ -53,8 +62,6 @@ export class CampaignService {
           this.campaignStore.setLoading(false);
         }
       );
-
-    return this.campaignQuery.getHasCache() ? of() : allCampaign;
   }
   updateTemplate() {
     this.httpClient

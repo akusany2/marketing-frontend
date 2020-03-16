@@ -6,7 +6,7 @@
     <nz-empty [nzNotFoundImage]="
         'https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original'
       " [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl"
-      *ngIf="!showCampaign$ | async; else showCampaigns">
+      *ngIf="(showCampaign$ | async) == 0; else showCampaigns">
       <ng-template #contentTpl>
         <span> No campaigns found </span>
       </ng-template>
@@ -17,6 +17,7 @@
 
 
     <ng-template #showCampaigns class="wrap">
+      <h2 class="pull-left">Campaigns</h2>
       <button nz-button nzType="primary" routerLink="/campaign/choose-template" class="pull-right">New Campaign</button>
       <br><br>
       <nz-row [nzGutter]="16" class="bg-white p-15 mb-10" *ngFor="let campaign of campaignList$ | async">
@@ -27,10 +28,10 @@
           <nz-statistic [nzValue]="campaign.audiences.length | number" [nzTitle]="'Total Audiences'"></nz-statistic>
         </nz-col>
         <nz-col [nzSpan]="6">
-          <nz-statistic [nzValue]="campaign.audiences.length | number" [nzTitle]="'Total Audiences'"></nz-statistic>
+          <nz-statistic [nzValue]="campaign.stats.delivered" [nzTitle]="'Delivered'"></nz-statistic>
         </nz-col>
         <nz-col [nzSpan]="6">
-          <nz-statistic [nzValue]="2019.111 | number: '1.0-2'" [nzTitle]="'Account Balance (CNY)'"></nz-statistic>
+          <nz-statistic [nzValue]="campaign.stats.open" [nzTitle]="'Opened'"></nz-statistic>
         </nz-col>
       </nz-row>
 

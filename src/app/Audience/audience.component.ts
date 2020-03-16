@@ -67,7 +67,10 @@ export class AudienceComponent implements OnInit {
         data
           .filter(item => this.mapOfCheckedId[item._id])
           .map(item => {
-            return { email: item.email };
+            return {
+              email: item.email,
+              userData: { firstName: item.name, lastName: item.surname }
+            };
           })
       );
     });
