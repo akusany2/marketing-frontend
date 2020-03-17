@@ -1,10 +1,9 @@
-
 export interface AudienceInterface {
   // id: ID;
   _id: string;
   userId: string;
-  name: string;
-  surname: string;
+  firstName: string;
+  lastName: string;
   phone: number;
   email: string;
   source: string;
@@ -14,4 +13,4 @@ export interface AudienceInterface {
   lastPurchaseAt: string;
 }
 
-interface CouponsInterface { }
+interface CouponsInterface {}

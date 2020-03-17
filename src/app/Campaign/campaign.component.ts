@@ -16,6 +16,7 @@ declare global {
 export class CampaignComponent implements OnInit {
   campaignList$: Observable<CampaignInterface[]>;
   showCampaign$: Observable<number>;
+  loading$: Observable<boolean>;
   constructor(
     private campaignQuery: CampaignQuery,
     private campaignStore: CampaignStore,
@@ -30,9 +31,9 @@ export class CampaignComponent implements OnInit {
   ngOnInit() {
     this.campaignList$ = this.campaignQuery.selectAll();
     this.showCampaign$ = this.campaignQuery.selectCount();
-    if (!this.campaignQuery.getHasCache()) {
-      this.campaignService.getAllCampaign();
-    }
+    this.loading$ = this.campaignQuery.selectLoading();
+    this.campaignService.getAllCampaign();
+
     this.addMetaDataCampaign();
     window.t = this;
   }

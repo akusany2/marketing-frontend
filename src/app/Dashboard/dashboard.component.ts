@@ -7,14 +7,10 @@ import { UserService } from "../sharedServices/user.service";
   styleUrls: ["./dashboard.component.css"]
 })
 export class DashboardComponent implements OnInit {
-  userProfile = {
-    username: ""
-  };
-  constructor(private userService: UserService) {
-    this.userService.getUserProfile().subscribe(data => {
-      this.userProfile = data as any;
-    });
-  }
+  userProfile$;
+  constructor(private userService: UserService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.userProfile$ = this.userService.getUserProfile();
+  }
 }

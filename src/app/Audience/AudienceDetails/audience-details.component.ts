@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from '@angular/router';
-import { StateHistoryPlugin } from '@datorama/akita';
+import { ActivatedRoute, Router } from "@angular/router";
+import { StateHistoryPlugin } from "@datorama/akita";
 import { LoginService } from "../../Login/login.service";
-import { AudienceQuery } from '../audience.store';
+import { AudienceQuery } from "../audience.store";
 import { AudienceCreateInterface } from "../Interfaces/audience-create.interface";
-import { AudienceInterface } from '../Interfaces/audience.interface';
+import { AudienceInterface } from "../Interfaces/audience.interface";
 import { AudienceDetailService } from "./audience-details.service";
 
 @Component({
@@ -25,7 +25,7 @@ export class AudienceDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private audienceQuery: AudienceQuery
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     // if audience does not exists
@@ -34,8 +34,8 @@ export class AudienceDetailComponent implements OnInit {
     }
 
     this.audienceCreateForm = new FormGroup({
-      name: new FormControl("", [Validators.required]),
-      surname: new FormControl("", [Validators.required]),
+      firstName: new FormControl("", [Validators.required]),
+      lastName: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.email]),
       phone: new FormControl("", [Validators.required]),
       source: new FormControl("website", [Validators.required])
@@ -51,7 +51,6 @@ export class AudienceDetailComponent implements OnInit {
         }
       });
     });
-
   }
 
   submitCreateAudience(audienceData: AudienceCreateInterface) {

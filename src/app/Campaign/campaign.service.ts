@@ -42,6 +42,7 @@ export class CampaignService {
     return stats;
   }
   getAllCampaign() {
+    this.campaignStore.setLoading(true);
     return this.httpClient
       .post<CampaignInterface[]>(apiServerUrl + "/campaign/all", {
         companyId: this.loginService.getUser().companyId

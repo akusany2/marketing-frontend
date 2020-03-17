@@ -69,7 +69,7 @@ export class AudienceComponent implements OnInit {
           .map(item => {
             return {
               email: item.email,
-              userData: { firstName: item.name, lastName: item.surname }
+              userData: { firstName: item.firstName, lastName: item.lastName }
             };
           })
       );
