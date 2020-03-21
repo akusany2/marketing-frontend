@@ -1,3 +1,3 @@
 export const apiServerUrl =
-  "http://ec2-34-229-231-51.compute-1.amazonaws.com/api";
+  "ec2-54-194-184-157.eu-west-1.compute.amazonaws.com/api";
 // export const apiServerUrl = "http://localhost:3000/api";
