@@ -30,7 +30,7 @@
       </nz-form-control>
     </nz-form-item>
     <nz-form-item class="flex-center">
-      <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
+      <button nz-button class="login-form-button" [nzType]="'primary'" [disabled]="!loginForm.valid">Log in</button>
     </nz-form-item>
     <!-- <nz-form-item>
     <nz-form-control>
