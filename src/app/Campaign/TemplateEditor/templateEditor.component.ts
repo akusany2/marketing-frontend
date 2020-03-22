@@ -36,6 +36,7 @@ export class TemplateEditorComponent implements OnInit {
   ngOnInit() {
     this.templateEditForm = new FormGroup({
       templateName: new FormControl("", [Validators.required]),
+      subject: new FormControl("", [Validators.required]),
       primaryText: new FormControl("Primary text"),
       secondaryText: new FormControl("Secondary text")
     });
@@ -77,6 +78,7 @@ export class TemplateEditorComponent implements OnInit {
     this.templateEditorService.createTemplate({
       companyId: this.userProfileQuery.getEntity("userProfile").companyId,
       templateName: templateData.templateName,
+      subject: templateData.subject,
       sgTemplateId: this.templateQuery.getValue().templateId,
       templateMetaData: {
         primaryText: this.primaryTextSelector.innerText,

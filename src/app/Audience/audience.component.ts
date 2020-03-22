@@ -6,7 +6,11 @@ import { CampaignQuery } from "../Campaign/campaign.store";
 import { AudienceService } from "./audience.service";
 import { AudienceQuery } from "./audience.store";
 import { AudienceInterface } from "./Interfaces/audience.interface";
-
+declare global {
+  interface Window {
+    t: any;
+  }
+}
 @Component({
   selector: "app-audience",
   templateUrl: "./audience.component.html",
@@ -76,6 +80,7 @@ export class AudienceComponent implements OnInit {
     });
   }
   ngOnInit(): void {
+    window.t = this;
     this.isListLoading$ = this.audienceQuery.selectLoading();
     this.listOfDisplayAudience$ = this.audienceQuery.selectAll();
     if (!this.audienceQuery.getHasCache()) {

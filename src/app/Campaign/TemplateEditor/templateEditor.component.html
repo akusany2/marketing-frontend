@@ -26,6 +26,13 @@
           </nz-form-item>
 
           <nz-form-item>
+            <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" nzRequired nzFor="subject">Subject</nz-form-label>
+            <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10" nzErrorTip="Subject required" nzHasFeedback>
+              <input type="text" nz-input formControlName="subject" placeholder="Subject" required />
+            </nz-form-control>
+          </nz-form-item>
+
+          <nz-form-item>
             <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6">Primary text
             </nz-form-label>
             <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10">

@@ -21,8 +21,15 @@ export class AuthGuard implements CanActivate {
     // console.log(this.helper.decodeToken(this.loginService.getToken()));
     // console.log(this.helper.isTokenExpired(this.loginService.getToken()));
 
-    if (this.helper.isTokenExpired(this.loginService.getToken())) {
+    try {
+      if (this.helper.isTokenExpired(this.loginService.getToken())) {
+        this.loginService.removeToken();
+        this.loginService.removeUser();
+        this.route.navigate(["/login"]);
+      }
+    } catch (error) {
       this.loginService.removeToken();
+      this.loginService.removeUser();
       this.route.navigate(["/login"]);
     }
     return true;

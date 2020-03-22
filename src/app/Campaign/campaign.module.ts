@@ -3,6 +3,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { NgModule } from "@angular/core";
 import { HeaderModule } from "../Header/header.module";
 import { SharedModule } from "../sharedModule/shared.module";
+import { PipeModule } from "../sharedPipes/pipe.module";
 import { AuthGuard } from "../sharedServices/auth.guard";
 import { TokenInterceptor } from "../sharedServices/token-interceptor";
 import { CampaignRoutingModule } from "./campaign-routing.module";
@@ -19,6 +20,7 @@ import { TemplateEditorModule } from "./TemplateEditor/templateEditor.module";
     HeaderModule,
     SharedModule,
     TemplateEditorModule,
+    PipeModule,
     HttpClientModule
   ],
   providers: [

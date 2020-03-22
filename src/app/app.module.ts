@@ -39,6 +39,7 @@ registerLocaleData(en);
     // NgZorroAntdModule,
     FormsModule
   ],
+  exports: [],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     LoginService,

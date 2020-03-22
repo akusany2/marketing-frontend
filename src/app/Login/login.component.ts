@@ -39,14 +39,20 @@ export class LoginComponent implements OnInit {
     this.loginService.loginUser(userData).subscribe(
       data => {
         this.loginService.removeToken();
-        if (data["message"] === StatusMessageEnum.invalidCredentials) {
-          this.loginHttpError.status = true;
-          this.loginHttpError.message = "Invalid credentials!";
-        } else {
-          this.loginService.setToken(data["token"]);
-          this.loginService.setUser(JSON.stringify(data["user"]));
-          this.userProfileStore.set({ userProfile: data["user"] });
-          this.router.navigate(["/dashboard"]);
+        switch (data["message"]) {
+          case StatusMessageEnum.invalidCredentials:
+            this.loginHttpError.status = true;
+            this.loginHttpError.message = "Invalid credentials!";
+            break;
+          case StatusMessageEnum.companyNotFound:
+            this.loginHttpError.status = true;
+            this.loginHttpError.message = "Invalid company ID!";
+          default:
+            this.loginService.setToken(data["token"]);
+            this.loginService.setUser(JSON.stringify(data["user"]));
+            this.userProfileStore.set({ userProfile: data["user"] });
+            this.router.navigate(["/dashboard"]);
+            break;
         }
       },
       err => {

@@ -26,7 +26,8 @@
         <button nz-button nzType="primary" routerLink="/campaign/choose-template" class="pull-right">New
           Campaign</button>
         <br><br>
-        <nz-row [nzGutter]="16" class="bg-white p-15 mb-10" *ngFor="let campaign of campaignList$ | async">
+        <nz-row [nzGutter]="16" class="bg-white p-15 mb-10"
+          *ngFor="let campaign of campaignList$ | async | sortBy: 'desc': 'updatedAt'">
           <nz-col [nzSpan]="6">
             <nz-statistic [nzValue]="campaign.name" [nzTitle]="'Campaign name'"></nz-statistic>
           </nz-col>

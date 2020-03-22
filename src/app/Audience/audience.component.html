@@ -30,7 +30,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of filterTable.data">
+          <tr *ngFor="let data of filterTable.data | sortBy: 'desc': 'updatedAt'">
             <td *ngIf="isEditable" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data._id]"
               (nzCheckedChange)="refreshStatus()"></td>
             <td>{{ data.firstName }}</td>

@@ -1,3 +1,4 @@
 export enum StatusMessageEnum {
-  invalidCredentials = "invalidCredentials"
+  invalidCredentials = "invalidCredentials",
+  companyNotFound = "Company not found"
 }

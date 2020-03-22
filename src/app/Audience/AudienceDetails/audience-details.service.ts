@@ -29,7 +29,7 @@ export class AudienceDetailService {
       this.http.post(apiServerUrl + "/audience", audienceData).subscribe(
         data => {
           const id: any = data["_id"];
-          this.audienceStore.upsert(id, audienceData);
+          this.audienceStore.upsert(id, data);
           this.router.navigate(["/audience"]);
         },
         err => console.log(err)

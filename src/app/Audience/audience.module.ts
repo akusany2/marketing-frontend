@@ -6,6 +6,7 @@ import { HeaderModule } from "../Header/header.module";
 import { LoginService } from "../Login/login.service";
 import { NotFoundComponent } from "../SharedComponent/not-found.component";
 import { SharedModule } from "../sharedModule/shared.module";
+import { PipeModule } from "../sharedPipes/pipe.module";
 import { AuthGuard } from "../sharedServices/auth.guard";
 import { TokenInterceptor } from "../sharedServices/token-interceptor";
 import { AudienceRoutingModule } from "./audience-routing.module";
@@ -20,6 +21,7 @@ import { AudienceDetailService } from "./AudienceDetails/audience-details.servic
     AudienceRoutingModule,
     HttpClientModule,
     HeaderModule,
+    PipeModule,
     SharedModule
   ],
   declarations: [AudienceComponent, AudienceDetailComponent, NotFoundComponent],

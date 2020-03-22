@@ -3,11 +3,7 @@ import { Observable } from "rxjs";
 import { CampaignService } from "./campaign.service";
 import { CampaignQuery, CampaignStore } from "./campaign.store";
 import { CampaignInterface } from "./interfaces/campaign.interface";
-declare global {
-  interface Window {
-    t: any;
-  }
-}
+
 @Component({
   selector: "app-campaign",
   templateUrl: "./campaign.component.html",
@@ -35,6 +31,5 @@ export class CampaignComponent implements OnInit {
     this.campaignService.getAllCampaign();
 
     this.addMetaDataCampaign();
-    window.t = this;
   }
 }
