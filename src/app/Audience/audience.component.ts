@@ -6,15 +6,11 @@ import { CampaignQuery } from "../Campaign/campaign.store";
 import { AudienceService } from "./audience.service";
 import { AudienceQuery } from "./audience.store";
 import { AudienceInterface } from "./Interfaces/audience.interface";
-declare global {
-  interface Window {
-    t: any;
-  }
-}
+
 @Component({
   selector: "app-audience",
   templateUrl: "./audience.component.html",
-  styleUrls: ["./audience.component.css"]
+  styleUrls: ["./audience.component.css"],
 })
 export class AudienceComponent implements OnInit {
   constructor(
@@ -30,8 +26,9 @@ export class AudienceComponent implements OnInit {
 
   listOfDisplayAudience$: Observable<AudienceInterface[]>;
   isListLoading$: Observable<boolean>;
-
+  listOfCurrentPageData: AudienceInterface[];
   isAllDisplayDataChecked = false;
+
   mapOfCheckedId: { [key: string]: boolean } = {};
   isIndeterminate = false;
   numberOfChecked = 0;
@@ -49,45 +46,45 @@ export class AudienceComponent implements OnInit {
   }
 
   refreshStatus(): void {
-    this.listOfDisplayAudience$.subscribe(data => {
+    this.listOfDisplayAudience$.subscribe((data) => {
       this.isIndeterminate =
-        data.some(item => this.mapOfCheckedId[item._id]) &&
+        data.some((item) => this.mapOfCheckedId[item._id]) &&
         !this.isAllDisplayDataChecked;
       this.numberOfChecked = data.filter(
-        item => this.mapOfCheckedId[item._id]
+        (item) => this.mapOfCheckedId[item._id]
       ).length;
     });
   }
 
   checkAll(value: boolean): void {
-    this.listOfDisplayAudience$.subscribe(data => {
-      data.forEach(item => (this.mapOfCheckedId[item._id] = value));
+    this.listOfDisplayAudience$.subscribe((data) => {
+      data.forEach((item) => (this.mapOfCheckedId[item._id] = value));
     });
     this.refreshStatus();
   }
   addAudienceToCampaign() {
-    this.listOfDisplayAudience$.subscribe(data => {
+    this.listOfDisplayAudience$.subscribe((data) => {
       this.campaignService.addAudienceToCampaign(
         data
-          .filter(item => this.mapOfCheckedId[item._id])
-          .map(item => {
+          .filter((item) => this.mapOfCheckedId[item._id])
+          .map((item) => {
             return {
               email: item.email,
-              userData: { firstName: item.firstName, lastName: item.lastName }
+              userData: { firstName: item.firstName, lastName: item.lastName },
             };
           })
       );
     });
   }
+
   ngOnInit(): void {
-    window.t = this;
     this.isListLoading$ = this.audienceQuery.selectLoading();
     this.listOfDisplayAudience$ = this.audienceQuery.selectAll();
     if (!this.audienceQuery.getHasCache()) {
       this.audienceService.getAllAudience();
     }
 
-    this.route.data.subscribe(data => {
+    this.route.data.subscribe((data) => {
       if (data.method === "selectAudience" && this.campaignQuery.hasActive()) {
         this.isEditable = true;
       } else {

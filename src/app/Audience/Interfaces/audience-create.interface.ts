@@ -1,6 +1,6 @@
-
 export interface AudienceCreateInterface {
   _id?: string;
+  companyId: string;
   userId: string;
   name: string;
   surname: string;

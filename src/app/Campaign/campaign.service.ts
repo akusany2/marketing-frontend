@@ -26,7 +26,8 @@ export class CampaignService {
     let stats = {
       delivered: 0,
       open: 0,
-      bounce: 0
+      bounce: 0,
+      click: 0
     };
     audiences.forEach(audience => {
       if (audience.event) {
@@ -37,6 +38,7 @@ export class CampaignService {
         stats.bounce = audience.event["bounce"]
           ? stats.bounce + 1
           : stats.bounce;
+        stats.click = audience.event["click"] ? stats.click + 1 : stats.click;
       }
     });
     return stats;

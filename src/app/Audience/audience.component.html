@@ -4,21 +4,38 @@
   </nz-header>
   <nz-content>
     <div class="pos-rel">
-      <h2 *ngIf="isEditable" class="pull-left">Select Audience - <span>{{ numberOfChecked }} selected</span></h2>
-      <button *ngIf="!isEditable" nz-button nzType="primary" routerLink="/audience/create" class="mb-15 pull-right">
+      <h2 *ngIf="isEditable" class="pull-left">
+        Select Audience - <span>{{ numberOfChecked }} selected</span>
+      </h2>
+      <button
+        *ngIf="!isEditable"
+        nz-button
+        nzType="primary"
+        routerLink="/audience/create"
+        class="mb-15 pull-right"
+      >
         <i nz-icon nzType="plus"></i>Add audience
       </button>
       <div class="clearfix"></div>
     </div>
 
     <div class="inner-content">
-
-      <nz-table #filterTable [nzData]="listOfDisplayAudience$ | async" [nzLoading]="isListLoading$ | async"
-        [nzShowPagination]="false">
+      <nz-table
+        #filterTable
+        [nzData]="listOfDisplayAudience$ | async"
+        [nzLoading]="isListLoading$ | async"
+        nzShowPagination
+        nzShowSizeChanger
+      >
         <thead>
           <tr>
-            <th *ngIf="isEditable" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
-              (nzCheckedChange)="checkAll($event)" [nzIndeterminate]="isIndeterminate"></th>
+            <th
+              *ngIf="isEditable"
+              nzShowCheckbox
+              [(nzChecked)]="isAllDisplayDataChecked"
+              (nzCheckedChange)="checkAll($event)"
+              [nzIndeterminate]="isIndeterminate"
+            ></th>
             <th>
               Name
             </th>
@@ -30,9 +47,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let data of filterTable.data | sortBy: 'desc': 'updatedAt'">
-            <td *ngIf="isEditable" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data._id]"
-              (nzCheckedChange)="refreshStatus()"></td>
+          <tr
+            *ngFor="let data of filterTable.data | sortBy: 'desc':'updatedAt'"
+          >
+            <td
+              *ngIf="isEditable"
+              nzShowCheckbox
+              [(nzChecked)]="mapOfCheckedId[data._id]"
+              (nzCheckedChange)="refreshStatus()"
+            ></td>
             <td>{{ data.firstName }}</td>
             <td>{{ data.source }}</td>
             <td>{{ data.email }}</td>
@@ -47,13 +70,19 @@
     </div>
     <div *ngIf="isEditable" nz-row>
       <div nz-col nzSpan="8">
-        <br><br>
-        <button (click)="addAudienceToCampaign()" [disabled]="numberOfChecked == 0" nz-button class="login-form-button"
-          [nzType]="'primary'">Save and Start Campaign</button>
+        <br /><br />
+        <button
+          (click)="addAudienceToCampaign()"
+          [disabled]="numberOfChecked == 0"
+          nz-button
+          class="login-form-button"
+          [nzType]="'primary'"
+        >
+          Save and Start Campaign
+        </button>
         <!-- <button (click)="submitAndSelectAudience(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
           class="login-form-button" [nzType]="'primary'">Save Campaign and Select Audience</button> -->
       </div>
-
     </div>
   </nz-content>
 

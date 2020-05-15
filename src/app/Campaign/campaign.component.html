@@ -38,13 +38,24 @@
             <nz-statistic [nzValue]="campaign.stats.delivered" [nzTitle]="'Delivered'"></nz-statistic>
           </nz-col>
           <nz-col [nzSpan]="6">
-            <nz-statistic [nzValue]="campaign.stats.open" [nzTitle]="'Opened'"></nz-statistic>
+            <nz-statistic [nzValue]="campaign.stats.open" [nzTitle]="'Opened'"
+              (click)="campaign.stats.open>0 && openedEmailsModal(campaign._id)"
+              [ngClass]="{'link-text': campaign.stats.open>0}">
+            </nz-statistic>
           </nz-col>
         </nz-row>
 
       </ng-template>
     </ng-template>
 
+    <!-- Clicked emails modal -->
+    <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isClickedEmailsVisible" nzTitle="Emails Opened"
+      (nzOnCancel)="openedEmailsOK()">
+      <p *ngFor="let audience of openedAudiences">{{audience.email}}</p>
+      <div *nzModalFooter>
+        <button nz-button nzType="primary" (click)="openedEmailsOK()">OK</button>
+      </div>
+    </nz-modal>
 
   </nz-content>
   <!-- <nz-footer>Footer</nz-footer> -->

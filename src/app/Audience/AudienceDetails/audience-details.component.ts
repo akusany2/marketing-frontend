@@ -11,7 +11,7 @@ import { AudienceDetailService } from "./audience-details.service";
 @Component({
   selector: "app-audience-details",
   templateUrl: "./audience-details.component.html",
-  styleUrls: ["./audience-details.component.scss"]
+  styleUrls: ["./audience-details.component.scss"],
 })
 export class AudienceDetailComponent implements OnInit {
   audienceCreateForm: FormGroup;
@@ -38,11 +38,11 @@ export class AudienceDetailComponent implements OnInit {
       lastName: new FormControl("", [Validators.required]),
       email: new FormControl("", [Validators.email]),
       phone: new FormControl("", [Validators.required]),
-      source: new FormControl("website", [Validators.required])
+      source: new FormControl("website", [Validators.required]),
     });
 
-    this.route.data.subscribe(data => {
-      this.route.params.subscribe(params => {
+    this.route.data.subscribe((data) => {
+      this.route.params.subscribe((params) => {
         this.audienceDataEntity = this.audienceQuery.getEntity(params.id);
         if (data.method !== "add" && !this.audienceDataEntity) {
           this.router.navigate(["/audience"]);
@@ -55,6 +55,7 @@ export class AudienceDetailComponent implements OnInit {
 
   submitCreateAudience(audienceData: AudienceCreateInterface) {
     audienceData.userId = this.loginService.getUser()._id;
+    audienceData.companyId = this.loginService.getUser().companyId;
     this.createAudience.audienceCreate(audienceData);
   }
 

@@ -1,7 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { LoginService } from "./Login/login.service";
 import { UserProfileStore } from "./User.store";
-
+declare global {
+  interface Window {
+    t: any;
+  }
+}
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
