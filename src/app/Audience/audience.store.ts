@@ -3,7 +3,7 @@ import {
   EntityState,
   EntityStore,
   QueryEntity,
-  StoreConfig
+  StoreConfig,
 } from "@datorama/akita";
 import { AudienceInterface } from "./Interfaces/audience.interface";
 

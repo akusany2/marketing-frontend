@@ -14,6 +14,7 @@ import { AudienceComponent } from "./audience.component";
 import { AudienceService } from "./audience.service";
 import { AudienceDetailComponent } from "./AudienceDetails/audience-details.component";
 import { AudienceDetailService } from "./AudienceDetails/audience-details.service";
+import { AudienceListComponent } from "./AudienceList/AudienceList.component";
 
 @NgModule({
   imports: [
@@ -22,9 +23,14 @@ import { AudienceDetailService } from "./AudienceDetails/audience-details.servic
     HttpClientModule,
     HeaderModule,
     PipeModule,
-    SharedModule
+    SharedModule,
   ],
-  declarations: [AudienceComponent, AudienceDetailComponent, NotFoundComponent],
+  declarations: [
+    AudienceComponent,
+    AudienceDetailComponent,
+    AudienceListComponent,
+    NotFoundComponent,
+  ],
   providers: [
     LoginService,
     AudienceService,
@@ -33,9 +39,9 @@ import { AudienceDetailService } from "./AudienceDetails/audience-details.servic
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
+      multi: true,
     },
-    AuthGuard
-  ]
+    AuthGuard,
+  ],
 })
 export class AudienceModule {}

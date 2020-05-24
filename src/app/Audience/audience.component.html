@@ -7,77 +7,36 @@
       <h2 *ngIf="isEditable" class="pull-left">
         Select Audience - <span>{{ numberOfChecked }} selected</span>
       </h2>
-      <button
-        *ngIf="!isEditable"
-        nz-button
-        nzType="primary"
-        routerLink="/audience/create"
-        class="mb-15 pull-right"
-      >
+      <button *ngIf="!isEditable" nz-button nzType="primary" routerLink="/audience/create" class="mb-15 pull-right">
         <i nz-icon nzType="plus"></i>Add audience
       </button>
       <div class="clearfix"></div>
     </div>
 
     <div class="inner-content">
-      <nz-table
-        #filterTable
-        [nzData]="listOfDisplayAudience$ | async"
-        [nzLoading]="isListLoading$ | async"
-        nzShowPagination
-        nzShowSizeChanger
-      >
-        <thead>
-          <tr>
-            <th
-              *ngIf="isEditable"
-              nzShowCheckbox
-              [(nzChecked)]="isAllDisplayDataChecked"
-              (nzCheckedChange)="checkAll($event)"
-              [nzIndeterminate]="isIndeterminate"
-            ></th>
-            <th>
-              Name
-            </th>
-            <th>Source</th>
-            <th>
-              Email
-            </th>
-            <th *ngIf="!isEditable">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="let data of filterTable.data | sortBy: 'desc':'updatedAt'"
-          >
-            <td
-              *ngIf="isEditable"
-              nzShowCheckbox
-              [(nzChecked)]="mapOfCheckedId[data._id]"
-              (nzCheckedChange)="refreshStatus()"
-            ></td>
-            <td>{{ data.firstName }}</td>
-            <td>{{ data.source }}</td>
-            <td>{{ data.email }}</td>
-            <td *ngIf="!isEditable">
-              <a (click)="editAudience(data._id)">Edit</a>
-              <nz-divider nzType="vertical"></nz-divider>
-              <a (click)="deleteAudience(data._id)">Delete</a>
-            </td>
-          </tr>
-        </tbody>
-      </nz-table>
+      <nz-tabset>
+        <nz-tab [nzTitle]="'Customer'">
+          <app-audience-list [audienceList]="listOfDisplayAudience$ | async | filter: 'type':'customer'"
+            [isListLoading$]="isListLoading$" [isEditable]="isEditable" [mapOfCheckedId]="mapOfCheckedId"
+            [refreshStatus]="refreshStatus" (editAudience)="editAudience($event)"
+            (deleteAudience)="deleteAudience($event)">
+          </app-audience-list>
+        </nz-tab>
+        <nz-tab [nzTitle]="'Non Customer'">
+          <app-audience-list [audienceList]="listOfDisplayAudience$ | async | filter: 'type':'nonCustomer'"
+            [isListLoading$]="isListLoading$" [isEditable]="isEditable" [mapOfCheckedId]="mapOfCheckedId"
+            [refreshStatus]="refreshStatus" (editAudience)="editAudience($event)"
+            (deleteAudience)="deleteAudience($event)">
+          </app-audience-list>
+        </nz-tab>
+      </nz-tabset>
+
     </div>
     <div *ngIf="isEditable" nz-row>
       <div nz-col nzSpan="8">
         <br /><br />
-        <button
-          (click)="addAudienceToCampaign()"
-          [disabled]="numberOfChecked == 0"
-          nz-button
-          class="login-form-button"
-          [nzType]="'primary'"
-        >
+        <button (click)="addAudienceToCampaign()" [disabled]="numberOfChecked == 0" nz-button class="login-form-button"
+          [nzType]="'primary'">
           Save and Start Campaign
         </button>
         <!-- <button (click)="submitAndSelectAudience(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button

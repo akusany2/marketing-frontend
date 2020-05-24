@@ -3,10 +3,9 @@
     <app-header></app-header>
   </nz-header>
   <nz-content>
-
     <h2 *ngIf="!audienceDataEntity" align="center">Add Audience</h2>
     <h2 *ngIf="audienceDataEntity" align="center">Edit Audience</h2>
-    <br>
+    <br />
 
     <form nz-form [formGroup]="audienceCreateForm" class="login-form">
       <!-- <nz-form-item *ngIf="audienceValidation">
@@ -15,56 +14,170 @@
         </nz-alert>
       </nz-form-item> -->
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" [nzOffset]="3" nzRequired nzFor="firstName">First name
+        <nz-form-label
+          [nzSm]="6"
+          [nzXs]="24"
+          [nzXl]="6"
+          [nzOffset]="3"
+          nzRequired
+          nzFor="firstName"
+          >First name
         </nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="6" nzErrorTip="First name required" nzHasFeedback>
-          <input type="text" nz-input formControlName="firstName" placeholder="First name" required />
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          [nzXl]="6"
+          nzErrorTip="First name required"
+          nzHasFeedback
+        >
+          <input
+            type="text"
+            nz-input
+            formControlName="firstName"
+            placeholder="First name"
+            required
+          />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" [nzOffset]="3" nzRequired nzFor="lastName">Last name
+        <nz-form-label
+          [nzSm]="6"
+          [nzXs]="24"
+          [nzXl]="6"
+          [nzOffset]="3"
+          nzRequired
+          nzFor="lastName"
+          >Last name
         </nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="6" nzErrorTip="Last name required" nzHasFeedback>
-          <input type="text" nz-input formControlName="lastName" placeholder="Last name" required />
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          [nzXl]="6"
+          nzErrorTip="Last name required"
+          nzHasFeedback
+        >
+          <input
+            type="text"
+            nz-input
+            formControlName="lastName"
+            placeholder="Last name"
+            required
+          />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" [nzOffset]="3" nzRequired nzFor="email">Email</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="6" nzErrorTip="Please input your Email!" nzHasFeedback>
-          <input type="email" nz-input formControlName="email" placeholder="Email" required />
+        <nz-form-label
+          [nzSm]="6"
+          [nzXs]="24"
+          [nzXl]="6"
+          [nzOffset]="3"
+          nzRequired
+          nzFor="email"
+          >Email</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          [nzXl]="6"
+          nzErrorTip="Please input your Email!"
+          nzHasFeedback
+        >
+          <input
+            type="email"
+            nz-input
+            formControlName="email"
+            placeholder="Email"
+            required
+          />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" [nzOffset]="3" nzRequired nzFor="phone">Phone</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="6" nzErrorTip="Please input your Phone!" nzHasFeedback>
-          <input type="number" nz-input formControlName="phone" placeholder="phone" required />
+        <nz-form-label
+          [nzSm]="6"
+          [nzXs]="24"
+          [nzXl]="6"
+          [nzOffset]="3"
+          nzRequired
+          nzFor="phone"
+          >Phone</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          [nzXl]="6"
+          nzErrorTip="Please input your Phone!"
+          nzHasFeedback
+        >
+          <input
+            type="number"
+            nz-input
+            formControlName="phone"
+            placeholder="phone"
+            required
+          />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" [nzOffset]="3" nzRequired nzFor="source">Source</nz-form-label>
-        <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="6" nzErrorTip="Must define the Source!" nzHasFeedback>
-          <input type="text" nz-input formControlName="source" placeholder="Source" required />
+        <nz-form-label
+          [nzSm]="6"
+          [nzXs]="24"
+          [nzXl]="6"
+          [nzOffset]="3"
+          nzRequired
+          nzFor="source"
+          >Source</nz-form-label
+        >
+        <nz-form-control
+          [nzSm]="14"
+          [nzXs]="24"
+          [nzXl]="6"
+          nzErrorTip="Must define the Source!"
+          nzHasFeedback
+        >
+          <input
+            type="text"
+            nz-input
+            formControlName="source"
+            placeholder="Source"
+            required
+          />
         </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label
+          [nzSm]="6"
+          [nzXs]="24"
+          [nzXl]="6"
+          [nzOffset]="3"
+          nzRequired
+          nzFor="type"
+          >Type</nz-form-label
+        >
+        <nz-radio-group formControlName="type">
+          <label nz-radio-button nzValue="customer">Customer</label>
+          <label nz-radio-button nzValue="nonCustomer">Non Customer</label>
+        </nz-radio-group>
       </nz-form-item>
       <nz-form-item class="flex-center">
-        <button *ngIf="!audienceDataEntity" (click)="submitCreateAudience(audienceCreateForm.value)" nz-button
-          class="login-form-button" [nzType]="'primary'">Submit
-          Audience</button>
-        <button *ngIf="audienceDataEntity" (click)="submitEditAudience(audienceCreateForm.value)" nz-button
-          class="login-form-button" [nzType]="'primary'">Edit Audience</button>
+        <button
+          *ngIf="!audienceDataEntity"
+          (click)="submitCreateAudience(audienceCreateForm.value)"
+          nz-button
+          class="login-form-button"
+          [nzType]="'primary'"
+        >
+          Submit Audience
+        </button>
+        <button
+          *ngIf="audienceDataEntity"
+          (click)="submitEditAudience(audienceCreateForm.value)"
+          nz-button
+          class="login-form-button"
+          [nzType]="'primary'"
+        >
+          Edit Audience
+        </button>
       </nz-form-item>
-      <!-- <nz-form-item>
-    <nz-form-control>
-      <label nz-checkbox formControlName="remember">
-        <span>Remember me</span>
-      </label>
-      <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
-    </div>
-      <button nz-button class="login-form-button" [nzType]="'primary'">Log in</button>
-      Or
-      <a>register now!</a>
-    </nz-form-control>
-  </nz-form-item> -->
     </form>
   </nz-content>
   <!-- <nz-footer>Footer</nz-footer> -->

@@ -16,13 +16,20 @@ import { TemplateQuery, TemplateStore } from "./Campaign/template.store";
 import { LoginService } from "./Login/login.service";
 import { SharedModule } from "./sharedModule/shared.module";
 import { UserProfileQuery, UserProfileStore } from "./User.store";
+
+declare global {
+  interface Window {
+    s: any;
+  }
+}
+
 const sharedStores = [
   UserProfileStore,
   UserProfileQuery,
   AudienceStore,
   AudienceQuery,
   TemplateStore,
-  TemplateQuery
+  TemplateQuery,
 ];
 registerLocaleData(en);
 
@@ -37,14 +44,14 @@ registerLocaleData(en);
     BrowserAnimationsModule,
     SharedModule,
     // NgZorroAntdModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     LoginService,
-    ...sharedStores
+    ...sharedStores,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

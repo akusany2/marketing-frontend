@@ -1,0 +1,33 @@
+<nz-table #filterTable [nzData]="audienceList" [nzLoading]="isListLoading$ | async" nzShowPagination nzShowSizeChanger>
+  <thead>
+    <tr>
+      <th *ngIf="isEditable" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" (nzCheckedChange)="checkAll($event)"
+        [nzIndeterminate]="isIndeterminate"></th>
+      <th>
+        Name
+      </th>
+      <th>Source</th>
+
+      <th>
+        Email
+      </th>
+      <th *ngIf="!isEditable">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of filterTable.data | sortBy: 'desc':'updatedAt'">
+      <td *ngIf=" isEditable" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data._id]"
+        (nzCheckedChange)="refreshStatus()">
+      </td>
+      <td>{{ data.firstName }}</td>
+      <td>{{ data.source }}</td>
+
+      <td>{{ data.email }}</td>
+      <td *ngIf="!isEditable">
+        <a (click)="editAudienceClickHandler(data._id)">Edit</a>
+        <nz-divider nzType="vertical"></nz-divider>
+        <a (click)="deleteAudienceClickHanlder(data._id)">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

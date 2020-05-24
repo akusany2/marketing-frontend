@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { NzMessageService } from "ng-zorro-antd";
 import { apiServerUrl } from "../../../config";
 import { AudienceQuery, AudienceStore } from "../audience.store";
+import { AudienceInterface } from "../Interfaces/audience.interface";
 
 @Injectable()
 export class AudienceDetailService {
@@ -16,23 +17,24 @@ export class AudienceDetailService {
   ) {}
   checkDuplicateAudience(audienceData) {
     return this.audienceQuery.getCount(
-      audience => audience.email === audienceData.email
+      (audience) => audience.email === audienceData.email
     );
   }
   audienceCreate(audienceData) {
     const isDuplicate = this.checkDuplicateAudience(audienceData);
     if (isDuplicate) {
       this.nzMessageService.create("error", "Audience already exists!", {
-        nzDuration: 5000
+        nzDuration: 5000,
       });
     } else {
       this.http.post(apiServerUrl + "/audience", audienceData).subscribe(
-        data => {
+        (data: AudienceInterface) => {
           const id: any = data["_id"];
-          this.audienceStore.upsert(id, data);
+
+          this.audienceStore.add([data], { prepend: true });
           this.router.navigate(["/audience"]);
         },
-        err => console.log(err)
+        (err) => console.log(err)
       );
     }
   }
@@ -41,15 +43,15 @@ export class AudienceDetailService {
     const isDuplicate = this.checkDuplicateAudience(audienceData);
     if (isDuplicate) {
       this.nzMessageService.create("error", "Audience already exists!", {
-        nzDuration: 5000
+        nzDuration: 5000,
       });
     } else {
       this.http.put(apiServerUrl + "/audience", audienceData).subscribe(
-        data => {
+        (data) => {
           this.audienceStore.update(audienceData._id, audienceData);
           this.router.navigate(["/audience"]);
         },
-        err => console.log(err)
+        (err) => console.log(err)
       );
     }
   }

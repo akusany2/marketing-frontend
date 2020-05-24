@@ -78,7 +78,7 @@ export class AudienceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isListLoading$ = this.audienceQuery.selectLoading();
+    window.s = this.audienceQuery;
     this.listOfDisplayAudience$ = this.audienceQuery.selectAll();
     if (!this.audienceQuery.getHasCache()) {
       this.audienceService.getAllAudience();
