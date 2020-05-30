@@ -14,7 +14,6 @@ import { AudienceComponent } from "./audience.component";
 import { AudienceService } from "./audience.service";
 import { AudienceDetailComponent } from "./AudienceDetails/audience-details.component";
 import { AudienceDetailService } from "./AudienceDetails/audience-details.service";
-import { AudienceListComponent } from "./AudienceList/AudienceList.component";
 
 @NgModule({
   imports: [
@@ -25,12 +24,7 @@ import { AudienceListComponent } from "./AudienceList/AudienceList.component";
     PipeModule,
     SharedModule,
   ],
-  declarations: [
-    AudienceComponent,
-    AudienceDetailComponent,
-    AudienceListComponent,
-    NotFoundComponent,
-  ],
+  declarations: [AudienceComponent, AudienceDetailComponent, NotFoundComponent],
   providers: [
     LoginService,
     AudienceService,

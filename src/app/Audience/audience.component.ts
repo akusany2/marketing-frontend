@@ -37,7 +37,7 @@ export class AudienceComponent implements OnInit, OnDestroy {
   mapOfCheckedId: { [key: string]: boolean } = {};
   isIndeterminate = false;
   numberOfChecked = 0;
-  isEditable = true;
+  isEditable = false;
   campaignSelection = false;
 
   filterAudienceByType = [

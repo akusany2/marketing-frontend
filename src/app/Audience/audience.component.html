@@ -14,13 +14,51 @@
     </div>
 
     <div class="inner-content">
-
+      <!-- 
       <app-audience-list [audienceList]="listOfDisplayAudience" [isListLoading$]="isListLoading$"
         [isEditable]="isEditable" [mapOfCheckedId]="mapOfCheckedId" (checkAll)="checkAll($event)"
         (refreshStatus)="refreshStatus()" (editAudience)="editAudience($event)"
         (deleteAudience)="deleteAudience($event)" [filterAudienceByType]="filterAudienceByType"
         (filterAudienceByTypeHandler)="filterAudienceByTypeChangeHandler($event)">
-      </app-audience-list>
+      </app-audience-list> -->
+
+      <nz-table #filterTable [nzData]="listOfDisplayAudience" [nzLoading]="isListLoading$ | async" nzShowPagination
+        nzShowSizeChanger>
+        <thead>
+          <tr>
+            <th *ngIf="isEditable" nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked"
+              (nzCheckedChange)="checkAll($event)" [nzIndeterminate]="isIndeterminate"></th>
+            <th>
+              Name
+            </th>
+            <th>Source</th>
+            <th [nzFilters]="filterAudienceByType" (nzFilterChange)="filterAudienceByTypeChangeHandler($event)"
+              [nzShowFilter]="true">Type
+            </th>
+            <th>
+              Email
+            </th>
+            <th *ngIf="!isEditable">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of filterTable.data | sortBy: 'desc':'updatedAt'">
+            <td *ngIf="isEditable" nzShowCheckbox [(nzChecked)]="mapOfCheckedId[data._id]"
+              (nzCheckedChange)="refreshStatus()">
+            </td>
+            <td>{{ data.firstName }}</td>
+            <td>{{ data.source }}</td>
+            <td>{{data.type == 'customer' ? 'Customer' : 'Non Customer'}}</td>
+            <td>{{ data.email }}</td>
+            <td *ngIf="!isEditable">
+              <a (click)="editAudience(data._id)">Edit</a>
+              <nz-divider nzType="vertical"></nz-divider>
+              <a (click)="deleteAudience(data._id)">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+
 
     </div>
     <div *ngIf="isEditable" nz-row>

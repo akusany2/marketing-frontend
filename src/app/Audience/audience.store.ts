@@ -10,7 +10,7 @@ import { AudienceInterface } from "./Interfaces/audience.interface";
 export interface AudienceState extends EntityState<AudienceInterface> {}
 
 @Injectable({ providedIn: "root" })
-@StoreConfig({ name: "audience" })
+@StoreConfig({ name: "audience", idKey: "_id" })
 export class AudienceStore extends EntityStore<
   AudienceState,
   AudienceInterface
