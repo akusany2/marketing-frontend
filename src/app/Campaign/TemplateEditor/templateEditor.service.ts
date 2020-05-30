@@ -20,17 +20,35 @@ export class TemplateEditorService {
     const setTemplate = this.httpClient
       .post(apiServerUrl + "/template", template)
       .subscribe(
-        data => {
+        (data) => {
           this.templateStore.upsert(data["_id"], template);
           this.templateStore.setLoading(false);
           this.templateStore.setActive(data["_id"]);
           // this.router.navigate(["/campaign"]);
         },
-        error => {
+        (error) => {
           console.log(error);
           this.templateStore.setLoading(false);
         }
       );
     return this.templateQuery.getHasCache() ? of() : setTemplate;
+  }
+
+  updateTemplate(id, templateData: CreateTemplateDTO) {
+    this.templateStore.setLoading(true);
+    const activeTemplate = this.templateQuery.getActive();
+    const updateTemplate = this.httpClient
+      .put(apiServerUrl + "/template", activeTemplate)
+      .subscribe(
+        (data) => {
+          this.templateStore.setLoading(false);
+          this.templateStore.setActive(data["_id"]);
+        },
+        (error) => {
+          console.log(error);
+          this.templateStore.setLoading(false);
+        }
+      );
+    return updateTemplate;
   }
 }

@@ -6,27 +6,28 @@ import { AudienceDetailComponent } from "./AudienceDetails/audience-details.comp
 
 const routes: Routes = [
   {
-    path: "", canActivate: [AuthGuard],
+    path: "",
+    canActivate: [AuthGuard],
     children: [
       {
         path: "",
-        component: AudienceComponent
+        component: AudienceComponent,
       },
       {
         path: "create",
         component: AudienceDetailComponent,
-        data: { method: 'add' }
+        data: { method: "add" },
       },
       {
         path: "edit/:id",
-        component: AudienceDetailComponent
-      }
-    ]
-  }
+        component: AudienceDetailComponent,
+      },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AudienceRoutingModule { }
+export class AudienceRoutingModule {}

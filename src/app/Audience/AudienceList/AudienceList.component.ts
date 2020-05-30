@@ -12,15 +12,23 @@ export class AudienceListComponent implements OnInit {
   @Input() isListLoading$: Observable<boolean>;
   @Input() isEditable: boolean;
   @Input() mapOfCheckedId;
-  @Input() refreshStatus;
   @Output() editAudience = new EventEmitter();
   @Output() deleteAudience = new EventEmitter();
+  @Output() checkAll = new EventEmitter();
+  @Output() refreshStatus = new EventEmitter();
+
   constructor() {}
   deleteAudienceClickHanlder(id) {
     this.deleteAudience.emit(id);
   }
   editAudienceClickHandler(id) {
     this.editAudience.emit(id);
+  }
+  checkAllChangeHandler($event) {
+    this.checkAll.emit($event);
+  }
+  refreshStatusHandler() {
+    this.refreshStatus.emit();
   }
   ngOnInit() {}
 }

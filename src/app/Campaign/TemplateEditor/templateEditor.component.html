@@ -56,8 +56,12 @@
           <div nz-col nzSpan="12" nzOffset="1">
             <!-- <button (click)="submitTemplate(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
               class="login-form-button" [nzType]="'primary'">Save Template</button> -->
-            <button (click)="submitAndSelectAudience(templateEditForm.value)" [disabled]="!templateEditForm.valid"
-              nz-button class="login-form-button" [nzType]="'primary'">Save Template and Select Audience</button>
+            <button *ngIf="!getTemplateData.subject" (click)="submitAndSelectAudience(templateEditForm.value)"
+              [disabled]="!templateEditForm.valid" nz-button class="login-form-button" [nzType]="'primary'">Save
+              Template and Select Audience</button>
+            <button *ngIf="getTemplateData.subject" (click)="updateAndSelectAudience(templateEditForm.value)"
+              [disabled]="!templateEditForm.valid" nz-button class="login-form-button" [nzType]="'primary'">Update
+              Template and Select Audience</button>
           </div>
 
         </div>

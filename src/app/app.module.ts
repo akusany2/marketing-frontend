@@ -20,6 +20,7 @@ import { UserProfileQuery, UserProfileStore } from "./User.store";
 declare global {
   interface Window {
     s: any;
+    ss: any;
   }
 }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { throwError } from "rxjs";
 import { StatusMessageEnum } from "../sharedServices/status-message.enum";
 import { UserProfileStore } from "../User.store";
 import { UserLoginInterface } from "./interfaces/login.interface";
@@ -10,7 +10,7 @@ import { LoginService } from "./login.service";
 @Component({
   selector: "app-login",
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       companyId: new FormControl("", [Validators.required]),
       username: new FormControl("", [Validators.required]),
-      password: new FormControl("", [Validators.required])
+      password: new FormControl("", [Validators.required]),
     });
   }
   login(userData: UserLoginInterface) {
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     }
 
     this.loginService.loginUser(userData).subscribe(
-      data => {
+      (data) => {
         this.loginService.removeToken();
         switch (data["message"]) {
           case StatusMessageEnum.invalidCredentials:
@@ -55,11 +55,11 @@ export class LoginComponent implements OnInit {
             break;
         }
       },
-      err => {
+      (err) => {
         this.loginHttpError.status = true;
         this.loginHttpError.message =
           "Something went wrong, please contact Admin";
-        return Observable.throw(err);
+        return throwError(err);
       }
     );
   }

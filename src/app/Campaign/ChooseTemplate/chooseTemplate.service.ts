@@ -18,24 +18,55 @@ export class ChooseTemplateService {
     return this.httpClient.get(apiServerUrl + "/template/all");
   }
 
+  getAllUserEmailTemplates() {
+    const userEmailTemplate = this.httpClient.get(
+      apiServerUrl + "/template/allUserEmail"
+    );
+    return userEmailTemplate;
+  }
+
   getTemplate(type, name, id) {
     const template = this.httpClient
       .get(apiServerUrl + "/template/" + id + "." + name, {
-        responseType: "text"
+        responseType: "text",
       })
       .subscribe(
-        data => {
-          this.templateStore.update({
-            templateName: name,
-            templateHtml: data,
-            templateId: id
+        (data) => {
+          this.templateStore.set({
+            0: {
+              templateName: name,
+              templateHtml: data,
+              templateId: id,
+            },
           });
+          this.templateStore.setActive(0);
           this.router.navigate(["/campaign/template-editor"]);
         },
-        error => {
+        (error) => {
           console.log(error);
         }
       );
     return this.templateQuery.getHasCache() ? of() : template;
+  }
+  getUserDefinedTemplate(
+    name,
+    subject,
+    htmlData,
+    sgId,
+    templateId,
+    templateMetaData
+  ) {
+    this.templateStore.set({
+      0: {
+        templateName: name,
+        subject,
+        templateHtml: htmlData,
+        sgTemplateId: sgId,
+        templateId,
+        templateMetaData: templateMetaData,
+      },
+    });
+    this.templateStore.setActive(0);
+    this.router.navigate(["/campaign/template-editor"]);
   }
 }
