@@ -7,6 +7,7 @@ export interface AudienceInterface {
   phone: number;
   email: string;
   source: string;
+  type: string;
   coupons: CouponsInterface[];
   addedBy: string;
   modifiedBy: string;

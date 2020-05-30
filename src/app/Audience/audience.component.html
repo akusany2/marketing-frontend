@@ -14,22 +14,13 @@
     </div>
 
     <div class="inner-content">
-      <nz-tabset>
-        <nz-tab [nzTitle]="'Customer'">
-          <app-audience-list [audienceList]="listOfDisplayAudience$ | async | filter: 'type':'customer'"
-            [isListLoading$]="isListLoading$" [isEditable]="isEditable" [mapOfCheckedId]="mapOfCheckedId"
-            (checkAll)="checkAll($event)" (refreshStatus)="refreshStatus()" (editAudience)="editAudience($event)"
-            (deleteAudience)="deleteAudience($event)">
-          </app-audience-list>
-        </nz-tab>
-        <nz-tab [nzTitle]="'Non Customer'">
-          <app-audience-list [audienceList]="listOfDisplayAudience$ | async | filter: 'type':'nonCustomer'"
-            [isListLoading$]="isListLoading$" [isEditable]="isEditable" [mapOfCheckedId]="mapOfCheckedId"
-            (checkAll)="checkAll($event)" (refreshStatus)="refreshStatus()" (editAudience)="editAudience($event)"
-            (deleteAudience)="deleteAudience($event)">
-          </app-audience-list>
-        </nz-tab>
-      </nz-tabset>
+
+      <app-audience-list [audienceList]="listOfDisplayAudience" [isListLoading$]="isListLoading$"
+        [isEditable]="isEditable" [mapOfCheckedId]="mapOfCheckedId" (checkAll)="checkAll($event)"
+        (refreshStatus)="refreshStatus()" (editAudience)="editAudience($event)"
+        (deleteAudience)="deleteAudience($event)" [filterAudienceByType]="filterAudienceByType"
+        (filterAudienceByTypeHandler)="filterAudienceByTypeChangeHandler($event)">
+      </app-audience-list>
 
     </div>
     <div *ngIf="isEditable" nz-row>

@@ -17,6 +17,9 @@ export class AudienceListComponent implements OnInit {
   @Output() checkAll = new EventEmitter();
   @Output() refreshStatus = new EventEmitter();
 
+  @Input() filterAudienceByType;
+  @Output() filterAudienceByTypeHandler = new EventEmitter();
+
   constructor() {}
   deleteAudienceClickHanlder(id) {
     this.deleteAudience.emit(id);
@@ -29,6 +32,9 @@ export class AudienceListComponent implements OnInit {
   }
   refreshStatusHandler() {
     this.refreshStatus.emit();
+  }
+  filterAudienceChange(filter) {
+    this.filterAudienceByTypeHandler.emit(filter);
   }
   ngOnInit() {}
 }
