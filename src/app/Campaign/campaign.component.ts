@@ -7,7 +7,7 @@ import { CampaignInterface } from "./interfaces/campaign.interface";
 @Component({
   selector: "app-campaign",
   templateUrl: "./campaign.component.html",
-  styleUrls: ["./campaign.component.css"]
+  styleUrls: ["./campaign.component.css"],
 })
 export class CampaignComponent implements OnInit {
   campaignList$: Observable<CampaignInterface[]>;
@@ -20,12 +20,6 @@ export class CampaignComponent implements OnInit {
     private campaignStore: CampaignStore,
     private campaignService: CampaignService
   ) {}
-  addMetaDataCampaign() {
-    this.campaignList$.subscribe(campaigns => {
-      console.log(campaigns);
-      // campaigns.
-    });
-  }
 
   openedEmailsOK() {
     this.isClickedEmailsVisible = false;
@@ -33,7 +27,7 @@ export class CampaignComponent implements OnInit {
   openedEmailsModal(campaignId) {
     this.openedAudiences = this.campaignQuery
       .getEntity(campaignId)
-      .audiences.filter(audience => audience.event.open === true);
+      .audiences.filter((audience) => audience.event.open === true);
     this.isClickedEmailsVisible = true;
   }
   ngOnInit() {
@@ -41,8 +35,5 @@ export class CampaignComponent implements OnInit {
     this.showCampaign$ = this.campaignQuery.selectCount();
     this.loading$ = this.campaignQuery.selectLoading();
     this.campaignService.getAllCampaign();
-
-    this.addMetaDataCampaign();
-    window.t = this;
   }
 }

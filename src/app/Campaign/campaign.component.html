@@ -1,62 +1,56 @@
-<nz-layout class="h-100pt">
-  <nz-header class="mb-10">
-    <app-header></app-header>
-  </nz-header>
-  <nz-content>
-    <div *ngIf="(loading$ | async); else campaignList">
-      <i nz-icon nzType="loading" style="font-size: 24px;"></i>
-    </div>
+<nz-content>
+  <div *ngIf="(loading$ | async); else campaignList">
+    <i nz-icon nzType="loading" style="font-size: 24px;"></i>
+  </div>
 
-    <ng-template #campaignList>
-      <nz-empty [nzNotFoundImage]="
+  <ng-template #campaignList>
+    <nz-empty [nzNotFoundImage]="
         'https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original'
       " [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl"
-        *ngIf="(showCampaign$ | async) == 0; else showCampaigns">
-        <ng-template #contentTpl>
-          <span> No campaigns found </span>
-        </ng-template>
-        <ng-template #footerTpl>
-          <button nz-button nzType="primary" routerLink="/campaign/choose-template">New Campaign</button>
-        </ng-template>
-      </nz-empty>
-
-
-      <ng-template #showCampaigns class="wrap">
-        <h2 class="pull-left">Campaigns</h2>
-        <button nz-button nzType="primary" routerLink="/campaign/choose-template" class="pull-right">New
-          Campaign</button>
-        <br><br>
-        <nz-row [nzGutter]="16" class="bg-white p-15 mb-10"
-          *ngFor="let campaign of campaignList$ | async | sortBy: 'desc': 'updatedAt'">
-          <nz-col [nzSpan]="6">
-            <nz-statistic [nzValue]="campaign.name" [nzTitle]="'Campaign name'"></nz-statistic>
-          </nz-col>
-          <nz-col [nzSpan]="6">
-            <nz-statistic [nzValue]="campaign.audiences.length | number" [nzTitle]="'Total Audiences'"></nz-statistic>
-          </nz-col>
-          <nz-col [nzSpan]="6">
-            <nz-statistic [nzValue]="campaign.stats.delivered" [nzTitle]="'Delivered'"></nz-statistic>
-          </nz-col>
-          <nz-col [nzSpan]="6">
-            <nz-statistic [nzValue]="campaign.stats.open" [nzTitle]="'Opened'"
-              (click)="campaign.stats.open>0 && openedEmailsModal(campaign._id)"
-              [ngClass]="{'link-text': campaign.stats.open>0}">
-            </nz-statistic>
-          </nz-col>
-        </nz-row>
-
+      *ngIf="(showCampaign$ | async) == 0; else showCampaigns">
+      <ng-template #contentTpl>
+        <span> No Email campaigns found </span>
       </ng-template>
+      <ng-template #footerTpl>
+        <button nz-button nzType="primary" routerLink="/campaign/choose-template">New Campaign</button>
+      </ng-template>
+    </nz-empty>
+
+
+    <ng-template #showCampaigns class="wrap">
+      <h2 class="pull-left">Email Campaigns</h2>
+      <button nz-button nzType="primary" routerLink="/campaign/choose-template" class="pull-right">New
+        Campaign</button>
+      <br><br>
+      <nz-row [nzGutter]="16" class="bg-white p-15 mb-10"
+        *ngFor="let campaign of campaignList$ | async | sortBy: 'desc': 'updatedAt'">
+        <nz-col [nzSpan]="6">
+          <nz-statistic [nzValue]="campaign.name" [nzTitle]="'Campaign name'"></nz-statistic>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-statistic [nzValue]="campaign.audiences.length | number" [nzTitle]="'Total Audiences'"></nz-statistic>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-statistic [nzValue]="campaign.stats.delivered" [nzTitle]="'Delivered'"></nz-statistic>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-statistic [nzValue]="campaign.stats.open" [nzTitle]="'Opened'"
+            (click)="campaign.stats.open>0 && openedEmailsModal(campaign._id)"
+            [ngClass]="{'link-text': campaign.stats.open>0}">
+          </nz-statistic>
+        </nz-col>
+      </nz-row>
+
     </ng-template>
+  </ng-template>
 
-    <!-- Clicked emails modal -->
-    <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isClickedEmailsVisible" nzTitle="Emails Opened"
-      (nzOnCancel)="openedEmailsOK()">
-      <p *ngFor="let audience of openedAudiences">{{audience.email}}</p>
-      <div *nzModalFooter>
-        <button nz-button nzType="primary" (click)="openedEmailsOK()">OK</button>
-      </div>
-    </nz-modal>
+  <!-- Clicked emails modal -->
+  <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isClickedEmailsVisible" nzTitle="Emails Opened"
+    (nzOnCancel)="openedEmailsOK()">
+    <p *ngFor="let audience of openedAudiences">{{audience.email}}</p>
+    <div *nzModalFooter>
+      <button nz-button nzType="primary" (click)="openedEmailsOK()">OK</button>
+    </div>
+  </nz-modal>
 
-  </nz-content>
-  <!-- <nz-footer>Footer</nz-footer> -->
-</nz-layout>
+</nz-content>

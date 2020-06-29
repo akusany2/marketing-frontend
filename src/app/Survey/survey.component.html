@@ -1,0 +1,58 @@
+<nz-content>
+  <div *ngIf="(loading$ | async); else surveyList">
+    <i nz-icon nzType="loading" style="font-size: 24px;"></i>
+  </div>
+
+  <ng-template #surveyList>
+    <nz-empty [nzNotFoundImage]="
+        'https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original'
+      " [nzNotFoundContent]="contentTpl" [nzNotFoundFooter]="footerTpl"
+      *ngIf="(showSurvey$ | async) == 0; else showSurveys">
+      <ng-template #contentTpl>
+        <span> No Survey found </span>
+      </ng-template>
+      <ng-template #footerTpl>
+        <button nz-button nzType="primary" routerLink="/survey/create">New Survey</button>
+      </ng-template>
+    </nz-empty>
+
+
+    <ng-template #showSurveys class="wrap">
+      <h2 class="pull-left">Surveys</h2>
+      <button nz-button nzType="primary" routerLink="/survey/create" class="pull-right">New
+        Survey</button>
+      <br><br>
+      <nz-row [nzGutter]="16" class="bg-white p-15 mb-10"
+        *ngFor="let survey of surveyList$ | async | sortBy: 'desc': 'updatedAt'">
+        <nz-col [nzSpan]="6">
+          <nz-statistic [nzValue]="survey.name" [nzTitle]="'Survey name'"></nz-statistic>
+        </nz-col>
+        <nz-col [nzSpan]="6">
+          <nz-statistic [nzValue]="survey.audiences.length | number" [nzTitle]="'Total Audiences'"></nz-statistic>
+        </nz-col>
+        <!-- <nz-col [nzSpan]="6">
+            <nz-statistic [nzValue]="survey.stats.delivered" [nzTitle]="'Delivered'"
+              (click)="survey.stats.delivered>0 && deliveredEmailsModal(survey._id)"
+              [ngClass]="{'link-text': survey.stats.delivered>0}"></nz-statistic>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-statistic [nzValue]="survey.stats.failed" [nzTitle]="'Failed'"
+              (click)="survey.stats.failed>0 && failedEmailsModal(survey._id)"
+              [ngClass]="{'link-text': survey.stats.failed>0}">
+            </nz-statistic>
+          </nz-col> -->
+      </nz-row>
+
+    </ng-template>
+  </ng-template>
+
+  <!-- Clicked emails modal -->
+  <!-- <nz-modal nzWrapClassName="vertical-center-modal" [(nzVisible)]="isAudienceDetailModalVisible"
+      nzTitle="{{surveyDetailModalTitle}}" (nzOnCancel)="openedEmailsOK()">
+      <p *ngFor="let audience of audienceDisplayInModal">{{audience.firstName}}</p>
+      <div *nzModalFooter>
+        <button nz-button nzType="primary" (click)="openedEmailsOK()">OK</button>
+      </div>
+    </nz-modal> -->
+
+</nz-content>

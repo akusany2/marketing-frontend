@@ -40,6 +40,8 @@ export class AudienceComponent implements OnInit, OnDestroy {
   isEditable = false;
   campaignSelection = false;
 
+  routeFrom: string;
+
   filterAudienceByType = [
     {
       text: this.languageService.lang().audienceTypes.customer.text,
@@ -124,6 +126,7 @@ export class AudienceComponent implements OnInit, OnDestroy {
         data.method.from &&
         data.method.from == "templateEditor"
       ) {
+        this.routeFrom = "templateEditor";
         this.campaignSelection = true;
       }
     });

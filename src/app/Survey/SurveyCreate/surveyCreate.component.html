@@ -1,0 +1,47 @@
+<nz-content>
+
+  <div nz-row>
+    <div nz-col nzSpan="12">
+      <h2 align="center">Create Survey</h2>
+      <form nz-form [formGroup]="surveyCreateForm" class="">
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" nzRequired nzFor="surveyName">Template
+            name</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10" nzErrorTip="Survey name required" nzHasFeedback>
+            <input type="text" nz-input formControlName="surveyName" placeholder="Survey name" required />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" nzRequired>Message
+          </nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10"
+            nzExtra="{{120 - surveyCreateForm.value.message.length}} characters left.">
+            <textarea nz-input formControlName="message" placeholder="Message"
+              [nzAutosize]="{ minRows: 4, maxRows: 12 }" maxlength="120"></textarea>
+
+          </nz-form-control>
+        </nz-form-item>
+
+      </form>
+      <br><br>
+
+
+    </div>
+    <div>
+      <div #formBuilder></div>
+    </div>
+    <br><br>
+    <div nz-row>
+      <div nz-col nzSpan="12" nzOffset="1">
+        <button nz-button class="login-form-button" [nzType]="'primary'" (click)="selectAudience()"
+          [disabled]="!surveyCreateForm.valid">Choose
+          Audience</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</nz-content>

@@ -1,78 +1,63 @@
-<nz-layout>
-  <nz-header class="mb-10">
-    <app-header></app-header>
-  </nz-header>
-  <nz-content>
+<nz-content>
 
-    <div nz-row>
-      <div nz-col nzSpan="12">
-        <h2 align="center">Template editor</h2>
-        <form nz-form [formGroup]="templateEditForm" class="">
+  <div nz-row>
+    <div nz-col nzSpan="12">
+      <h2 align="center">Template editor</h2>
+      <form nz-form [formGroup]="templateEditForm" class="">
 
-          <!-- <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" nzRequired nzFor="campaignName">Campaign
-              name</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10" nzErrorTip="Campaign name required" nzHasFeedback>
-              <input type="text" nz-input formControlName="campaignName" placeholder="Campaign name" required />
-            </nz-form-control>
-          </nz-form-item> -->
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" nzRequired nzFor="templateName">Template
+            name</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10" nzErrorTip="Template name required" nzHasFeedback>
+            <input type="text" nz-input formControlName="templateName" placeholder="Template name" required />
+          </nz-form-control>
+        </nz-form-item>
 
-          <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" nzRequired nzFor="templateName">Template
-              name</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10" nzErrorTip="Template name required" nzHasFeedback>
-              <input type="text" nz-input formControlName="templateName" placeholder="Template name" required />
-            </nz-form-control>
-          </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" nzRequired nzFor="subject">Subject</nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10" nzErrorTip="Subject required" nzHasFeedback>
+            <input type="text" nz-input formControlName="subject" placeholder="Subject" required />
+          </nz-form-control>
+        </nz-form-item>
 
-          <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6" nzRequired nzFor="subject">Subject</nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10" nzErrorTip="Subject required" nzHasFeedback>
-              <input type="text" nz-input formControlName="subject" placeholder="Subject" required />
-            </nz-form-control>
-          </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6">Primary text
+          </nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10">
+            <textarea nz-input formControlName="primaryText" placeholder="Primary text"
+              [nzAutosize]="{ minRows: 4, maxRows: 12 }"></textarea>
+          </nz-form-control>
+        </nz-form-item>
 
-          <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6">Primary text
-            </nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10">
-              <textarea nz-input formControlName="primaryText" placeholder="Primary text"
-                [nzAutosize]="{ minRows: 4, maxRows: 12 }"></textarea>
-            </nz-form-control>
-          </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6">Secondary text
+          </nz-form-label>
+          <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10">
+            <textarea nz-input formControlName="secondaryText" placeholder="Secondary text"
+              [nzAutosize]="{ minRows: 4, maxRows: 12 }"></textarea>
+          </nz-form-control>
+        </nz-form-item>
 
-          <nz-form-item>
-            <nz-form-label [nzSm]="6" [nzXs]="24" [nzXl]="6">Secondary text
-            </nz-form-label>
-            <nz-form-control [nzSm]="14" [nzXs]="24" [nzXl]="10">
-              <textarea nz-input formControlName="secondaryText" placeholder="Secondary text"
-                [nzAutosize]="{ minRows: 4, maxRows: 12 }"></textarea>
-            </nz-form-control>
-          </nz-form-item>
-
-        </form>
-        <br><br>
-        <div nz-row>
-          <div nz-col nzSpan="12" nzOffset="1">
-            <!-- <button (click)="submitTemplate(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
+      </form>
+      <br><br>
+      <div nz-row>
+        <div nz-col nzSpan="12" nzOffset="1">
+          <!-- <button (click)="submitTemplate(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
               class="login-form-button" [nzType]="'primary'">Save Template</button> -->
-            <button *ngIf="!getTemplateData.subject" (click)="submitAndSelectAudience(templateEditForm.value)"
-              [disabled]="!templateEditForm.valid" nz-button class="login-form-button" [nzType]="'primary'">Save
-              Template and Select Audience</button>
-            <button *ngIf="getTemplateData.subject" (click)="updateAndSelectAudience(templateEditForm.value)"
-              [disabled]="!templateEditForm.valid" nz-button class="login-form-button" [nzType]="'primary'">Update
-              Template and Select Audience</button>
-          </div>
-
+          <button *ngIf="!getTemplateData.subject" (click)="submitAndSelectAudience(templateEditForm.value)"
+            [disabled]="!templateEditForm.valid" nz-button class="login-form-button" [nzType]="'primary'">Save
+            Template and Select Audience</button>
+          <button *ngIf="getTemplateData.subject" (click)="updateAndSelectAudience(templateEditForm.value)"
+            [disabled]="!templateEditForm.valid" nz-button class="login-form-button" [nzType]="'primary'">Update
+            Template and Select Audience</button>
         </div>
-      </div>
-      <div nz-col nzSpan="12">
-        <iframe id="templatePreview" #templateIframe src="" frameborder="0" class="template-editor-iframe"></iframe>
+
       </div>
     </div>
-
-
-  </nz-content>
+    <div nz-col nzSpan="12">
+      <iframe id="templatePreview" #templateIframe src="" frameborder="0" class="template-editor-iframe"></iframe>
+    </div>
+  </div>
 
   <br><br>
-</nz-layout>
+</nz-content>
