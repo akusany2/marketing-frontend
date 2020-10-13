@@ -3,14 +3,15 @@ import { Injectable } from "@angular/core";
 import { apiServerUrl } from "../../config";
 import { LoginService } from "../Login/login.service";
 import { SurveyInterface } from "./Interfaces/survey.interface";
-import { SurveyStore } from "./survey.store";
+import { SurveyQuery, SurveyStore } from "./survey.store";
 
 @Injectable()
 export class SurveyService {
   constructor(
     private httpClient: HttpClient,
     private loginService: LoginService,
-    private surveyStore: SurveyStore
+    private surveyStore: SurveyStore,
+    private surveyQuery: SurveyQuery
   ) {}
   getSurveyStats(audiences) {
     let stats = {
@@ -44,5 +45,23 @@ export class SurveyService {
         }
       );
     return "something";
+  }
+  createSurvey() {
+    this.surveyStore.setLoading(true);
+    this.httpClient
+      .post<SurveyInterface>(apiServerUrl + "/survey/create", {
+        data: this.surveyQuery.getActive(),
+      })
+      .subscribe(
+        (survey) => {
+          this.surveyStore.setLoading(false);
+          // this.surveyStore.add(survey, { prepend: true });
+        },
+        (error) => {
+          this.surveyStore.setLoading(false);
+          this.surveyStore.setError(error);
+          console.log(error);
+        }
+      );
   }
 }

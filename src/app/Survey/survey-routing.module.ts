@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AudienceComponent } from "../Audience/audience.component";
 import { AuthGuard } from "../sharedServices/auth.guard";
 import { SurveyComponent } from "./survey.component";
 import { SurveyCreateComponent } from "./surveyCreate/surveyCreate.component";
@@ -17,11 +18,11 @@ const routes: Routes = [
         path: "create",
         component: SurveyCreateComponent,
       },
-      // {
-      //   path: "audience",
-      //   component: AudienceComponent,
-      //   data: { method: "selectAudience", from: "surveyCreate" },
-      // },
+      {
+        path: "audience",
+        component: AudienceComponent,
+        data: { method: "selectAudience", from: "surveyCreate" },
+      },
     ],
   },
 ];

@@ -1,3 +1,11 @@
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
 @for $i from 0 through 10 {
   .mb-#{$i*5} {
     margin-bottom: $i*5px

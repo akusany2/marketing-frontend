@@ -60,9 +60,13 @@
   <div *ngIf="isEditable" nz-row>
     <div nz-col nzSpan="8">
       <br /><br />
-      <button (click)="addAudienceToCampaign()" [disabled]="numberOfChecked == 0" nz-button class="login-form-button"
-        [nzType]="'primary'">
+      <button *ngIf="campaignSelection" (click)="addAudienceToCampaign()" [disabled]="numberOfChecked == 0" nz-button
+        class="login-form-button" [nzType]="'primary'">
         Save and Start Campaign
+      </button>
+      <button *ngIf="surveySelection" (click)="addAudienceToSurvey()" [disabled]="numberOfChecked == 0" nz-button
+        class="login-form-button" [nzType]="'primary'">
+        Save and Start Survey
       </button>
       <!-- <button (click)="submitAndSelectAudience(templateEditForm.value)" [disabled]="!templateEditForm.valid" nz-button
           class="login-form-button" [nzType]="'primary'">Save Campaign and Select Audience</button> -->

@@ -1,10 +1,10 @@
 import { SurveyAudienceInterface } from "./survey-audience.interface";
 export class SurveyInterface {
   _id?: string;
-  stats: object;
+  stats?: object;
   name: string;
   message: string;
+  formJson: string;
   companyId: string;
-  description: string;
-  audiences: [SurveyAudienceInterface];
+  audiences?: [SurveyAudienceInterface];
 }

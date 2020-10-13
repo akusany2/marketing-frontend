@@ -7,6 +7,7 @@ import {
   NzLayoutModule,
   NzPageHeaderModule,
   NzTableModule,
+  NzToolTipModule,
 } from "ng-zorro-antd";
 import { HeaderModule } from "../Header/header.module";
 import { LanguageService } from "./language.service";
@@ -22,6 +23,7 @@ import { SharedComponent } from "./shared.component";
     NzLayoutModule,
     NzPageHeaderModule,
     NzTableModule,
+    NzToolTipModule,
     HeaderModule,
   ],
   exports: [
@@ -32,6 +34,7 @@ import { SharedComponent } from "./shared.component";
     NzLayoutModule,
     NzPageHeaderModule,
     NzTableModule,
+    NzToolTipModule,
     HeaderModule,
   ],
   declarations: [SharedComponent],

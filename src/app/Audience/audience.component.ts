@@ -4,6 +4,8 @@ import { Observable } from "rxjs";
 import { CampaignService } from "../Campaign/campaign.service";
 import { CampaignQuery } from "../Campaign/campaign.store";
 import { LanguageService } from "../sharedModule/language.service";
+import { SurveyService } from "../Survey/survey.service";
+import { SurveyQuery, SurveyStore } from "../Survey/survey.store";
 import { AudienceService } from "./audience.service";
 import { AudienceQuery } from "./audience.store";
 import { AudienceInterface } from "./Interfaces/audience.interface";
@@ -19,6 +21,9 @@ export class AudienceComponent implements OnInit, OnDestroy {
     private audienceQuery: AudienceQuery,
     private campaignService: CampaignService,
     private campaignQuery: CampaignQuery,
+    private surveyQuery: SurveyQuery,
+    private surveyStore: SurveyStore,
+    private surveyService: SurveyService,
     private router: Router,
     private route: ActivatedRoute,
     private languageService: LanguageService
@@ -39,6 +44,7 @@ export class AudienceComponent implements OnInit, OnDestroy {
   numberOfChecked = 0;
   isEditable = false;
   campaignSelection = false;
+  surveySelection = false;
 
   routeFrom: string;
 
@@ -107,27 +113,45 @@ export class AudienceComponent implements OnInit, OnDestroy {
         })
     );
   }
+  addAudienceToSurvey() {
+    let selectedAudiences: any = this.listOfDisplayAudience
+      .filter((item) => this.mapOfCheckedId[item._id])
+      .map((item) => {
+        return {
+          email: item.email,
+          userData: { firstName: item.firstName, lastName: item.lastName },
+        };
+      });
+    this.surveyStore.updateActive({ audiences: selectedAudiences });
+    this.surveyService.createSurvey();
+  }
 
   ngOnInit(): void {
-    window.s = this.audienceQuery;
     this.listOfDisplayAudience$ = this.audienceQuery.selectAll();
     if (!this.audienceQuery.getHasCache()) {
       this.audienceService.getAllAudience();
     }
 
     this.route.data.subscribe((data) => {
-      if (data.method === "selectAudience" && this.campaignQuery.hasActive()) {
+      if (
+        data.method === "selectAudience" &&
+        (this.campaignQuery.hasActive() || this.surveyQuery.hasActive())
+      ) {
         this.isEditable = true;
       } else {
         this.router.navigate(["/audience"]);
       }
-      if (
-        data.method &&
-        data.method.from &&
-        data.method.from == "templateEditor"
-      ) {
-        this.routeFrom = "templateEditor";
-        this.campaignSelection = true;
+      if (data.method && data.method == "selectAudience") {
+        switch (data.from) {
+          case "templateEditor":
+            this.routeFrom = "templateEditor";
+            this.campaignSelection = true;
+            break;
+          case "surveyCreate":
+            this.routeFrom = "surveyCreate";
+            this.surveySelection = true;
+            break;
+        }
       }
     });
 

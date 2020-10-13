@@ -1,5 +1,6 @@
 export interface SurveyAudienceInterface {
-  email: string;
+  email: String;
+  userData: Object;
   time: number;
   event: any;
 }

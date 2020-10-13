@@ -9,6 +9,7 @@ import { SharedModule } from "../sharedModule/shared.module";
 import { PipeModule } from "../sharedPipes/pipe.module";
 import { AuthGuard } from "../sharedServices/auth.guard";
 import { TokenInterceptor } from "../sharedServices/token-interceptor";
+import { SurveyService } from "../Survey/survey.service";
 import { AudienceRoutingModule } from "./audience-routing.module";
 import { AudienceComponent } from "./audience.component";
 import { AudienceService } from "./audience.service";
@@ -30,6 +31,7 @@ import { AudienceDetailService } from "./AudienceDetails/audience-details.servic
     AudienceService,
     AudienceDetailService,
     CampaignService,
+    SurveyService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
